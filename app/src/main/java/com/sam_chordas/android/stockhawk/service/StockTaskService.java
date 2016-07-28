@@ -79,8 +79,10 @@ public class StockTaskService extends GcmTaskService {
                 DatabaseUtils.dumpCursor(initQueryCursor);
                 initQueryCursor.moveToFirst();
                 for (int i = 0; i < initQueryCursor.getCount(); i++) {
-                    mStoredSymbols.append("\"" +
-                            initQueryCursor.getString(initQueryCursor.getColumnIndex("symbol")) + "\",");
+                    mStoredSymbols
+                            .append("\"")
+                            .append(initQueryCursor.getString(initQueryCursor.getColumnIndex("symbol")))
+                            .append("\",");
                     initQueryCursor.moveToNext();
                 }
                 Log.v(LOG_TAG, String.valueOf(mStoredSymbols));
@@ -110,27 +112,26 @@ public class StockTaskService extends GcmTaskService {
         String getResponse;
         int result = GcmNetworkManager.RESULT_FAILURE;
 
-        if (urlStringBuilder != null) {
-            urlString = urlStringBuilder.toString();
+        urlString = urlStringBuilder.toString();
+        Log.v(LOG_TAG,urlString);
+        try {
+            getResponse = fetchData(urlString);
+            result = GcmNetworkManager.RESULT_SUCCESS;
             try {
-                getResponse = fetchData(urlString);
-                result = GcmNetworkManager.RESULT_SUCCESS;
-                try {
-                    ContentValues contentValues = new ContentValues();
-                    // update ISCURRENT to 0 (false) so new data is current
-                    if (isUpdate) {
-                        contentValues.put(QuoteColumns.ISCURRENT, 0);
-                        mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
-                                null, null);
-                    }
-                    mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
-                            Utils.quoteJsonToContentVals(getResponse));
-                } catch (RemoteException | OperationApplicationException e) {
-                    Log.e(LOG_TAG, "Error applying batch insert", e);
+                ContentValues contentValues = new ContentValues();
+                // update ISCURRENT to 0 (false) so new data is current
+                if (isUpdate) {
+                    contentValues.put(QuoteColumns.ISCURRENT, 0);
+                    mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
+                            null, null);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+                mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
+                        Utils.quoteJsonToContentVals(getResponse));
+            } catch (RemoteException | OperationApplicationException e) {
+                Log.e(LOG_TAG, "Error applying batch insert", e);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return result;
