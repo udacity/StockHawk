@@ -11,4 +11,5 @@
     <string name="input_prefill"></string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="detail">Stock Detail</string>
+    <string name="no_data_text_description">Loading...</string>
 </resources>

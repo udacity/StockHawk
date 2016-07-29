@@ -57,6 +57,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     private Context mContext;
     private Cursor mCursor;
     boolean isConnected;
+    private String symbol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                         //TODO:
                         // do something on item click
                         mCursor.moveToPosition(position);
-                        String symbol= mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
+                        symbol= mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
                         Intent intent = new Intent(mContext, MyStocksDetailActivity.class);
                         intent.putExtra("symbol",symbol);
                         startActivity(intent);

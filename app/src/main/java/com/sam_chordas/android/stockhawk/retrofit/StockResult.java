@@ -8,43 +8,15 @@ import java.util.List;
 public class StockResult {
 
     public List<StockItem> getStockItems() {
-        return stockItems;
+        return quote;
     }
 
-    public void setStockItems(List<StockItem> stockItems) {
-        this.stockItems = stockItems;
+    public void setStockItems(List<StockItem> quote) {
+        this.quote = quote;
     }
 
-    private List<StockItem> stockItems;
+    private List<StockItem> quote;
 
-    public static class StockItem {
-        String Symbol;
-        float Close;
-        String Date;
 
-        public void setSymbol(String symbol) {
-            Symbol = symbol;
-        }
-
-        public void setClose(float close) {
-            Close = close;
-        }
-
-        public void setDate(String date) {
-            Date = date;
-        }
-
-        public float getClose() {
-            return Close;
-        }
-
-        public String getDate() {
-            return Date;
-        }
-
-        public String getSymbol() {
-            return Symbol;
-        }
-    }
 
 }
