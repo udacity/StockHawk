@@ -69,7 +69,7 @@ public class Utils {
         }
         change = change.substring(1, change.length());
         double round = (double) Math.round(Double.parseDouble(change) * 100) / 100;
-        change = String.format("%.2f", round);
+        change = String.format(Locale.getDefault(),"%.2f", round);
         StringBuilder changeBuffer = new StringBuilder(change);
         changeBuffer.insert(0, weight);
         changeBuffer.append(ampersand);

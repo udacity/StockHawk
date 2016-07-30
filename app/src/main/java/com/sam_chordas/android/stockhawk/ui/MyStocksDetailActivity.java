@@ -40,12 +40,11 @@ public class MyStocksDetailActivity extends AppCompatActivity {
     private LineChart mLineChart;
 
     ArrayList<Entry> entries;
-    LineDataSet dataSet;
+    LineDataSet mLineDataSet;
     LineData data;
 
-    ArrayList<String> mDate= new ArrayList<>();
-    ArrayList<Float> mCloseValue= new ArrayList<>();
-
+    ArrayList<String> mDate = new ArrayList<>();
+    ArrayList<Float> mCloseValue = new ArrayList<>();
 
 
     @Override
@@ -53,7 +52,7 @@ public class MyStocksDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_graph);
         mLineChart = (LineChart) findViewById(R.id.linechart);
-        String stockSymbol = getIntent().getStringExtra("symbol");
+        final String stockSymbol = getIntent().getStringExtra("symbol");
         String endDate = Utils.getEndDate();
         final String startDate = Utils.getStartDate();
         Log.v(LOG_TAG, startDate + " " + endDate);
@@ -85,7 +84,7 @@ public class MyStocksDetailActivity extends AppCompatActivity {
                     mDate.add(item.getDate());
                     mCloseValue.add(item.getClose());
                 }
-                setData();
+                setData(mDate, mCloseValue, stockSymbol);
             }
 
             @Override
@@ -96,8 +95,7 @@ public class MyStocksDetailActivity extends AppCompatActivity {
 
     }
 
-    public void setData() {
-
+    public void setData(ArrayList<String> date, ArrayList<Float> closeValue, String stockSymbol) {
         // no description text
         mLineChart.setDescription("Stock's Value Over Time");
         mLineChart.setNoDataTextDescription(getString(R.string.no_data_text_description));
@@ -113,15 +111,18 @@ public class MyStocksDetailActivity extends AppCompatActivity {
         mLineChart.setBackgroundColor(Color.LTGRAY);
 
         //Add Data
-        entries = new ArrayList<>();
-        for (int i = 0; i < mCloseValue.size(); i++) {
-            entries.add(new Entry(i, mCloseValue.get(i)));
+        ArrayList<Entry> entries = new ArrayList<>();
+        for (int i = 0; i < closeValue.size(); i++) {
+            entries.add(new Entry(closeValue.get(i), i));
+            Log.v(LOG_TAG, "Close Value: " + closeValue.get(i));
         }
 
-        dataSet = new LineDataSet(entries, "Stock");
+        LineDataSet mLineDataSet = new LineDataSet(entries, stockSymbol);
+        mLineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
 
-        data = new LineData(dataSet);
+        data = new LineData(date, mLineDataSet);
+        Log.v(LOG_TAG, String.valueOf(date));
         mLineChart.setData(data);
 
         // get the legend (only possible after setting data)
@@ -135,19 +136,20 @@ public class MyStocksDetailActivity extends AppCompatActivity {
         xAxis.setTextSize(11f);
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawLabels(true);
+        //xAxis.setDrawAxisLine(true);
 
         YAxis leftAxis = mLineChart.getAxisLeft();
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawZeroLine(false);
-        leftAxis.setGranularityEnabled(true);
+        //leftAxis.setGranularityEnabled(true);
 
-        YAxis rightAxis= mLineChart.getAxisRight();
+        YAxis rightAxis = mLineChart.getAxisRight();
         rightAxis.setTextColor(ColorTemplate.getHoloBlue());
         rightAxis.setDrawGridLines(false);
         rightAxis.setDrawZeroLine(false);
-        rightAxis.setGranularityEnabled(true);
+        //rightAxis.setGranularityEnabled(true);
 
     }
 }
