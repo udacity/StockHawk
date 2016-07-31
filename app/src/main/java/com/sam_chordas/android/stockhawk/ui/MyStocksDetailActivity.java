@@ -35,121 +35,150 @@ public class MyStocksDetailActivity extends AppCompatActivity {
 
     private final String LOG_TAG = getClass().getSimpleName();
     private final String BASE_URL = "https://query.yahooapis.com/";
-    private List<StockItem> items;
 
     private LineChart mLineChart;
 
-    ArrayList<Entry> entries;
-    LineDataSet mLineDataSet;
-    LineData data;
+    private LineData data;
 
-    ArrayList<String> mDate = new ArrayList<>();
-    ArrayList<Float> mCloseValue = new ArrayList<>();
+
+    //Define ArrayList which contains list of stock item object
+    private ArrayList<StockItem> mStockArrayList;
+    private List<StockItem> items;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_graph);
+        mStockArrayList = new ArrayList<>();
         mLineChart = (LineChart) findViewById(R.id.linechart);
+        if (mLineChart != null) {
+            if (Utils.isConnected(this))
+                mLineChart.setNoDataText("Loading...Please Wait");
+            else
+                mLineChart.setNoDataText("No Internet Connection Available");
+        }
+
         final String stockSymbol = getIntent().getStringExtra("symbol");
         String endDate = Utils.getEndDate();
         final String startDate = Utils.getStartDate();
         Log.v(LOG_TAG, startDate + " " + endDate);
         String query = "select * from yahoo.finance.historicaldata where symbol='" +
-                stockSymbol +
+                stockSymbol.toUpperCase() +
                 "' and startDate ='" + startDate + "'and endDate ='" + endDate + "'";
 
+        if (savedInstanceState == null) {
+            //Think of a TypeToken as a way of creating, manipulating, and querying Type
+            // (and, implicitly Class) objects in a way that respects generics.
+            //you can't pass around generic Class objects at runtime --
+            // you might be able to cast them and pretend they're generic, but they really aren't.
+            Type listtype = new TypeToken<List<StockItem>>() {
+            }.getType();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create(
+                            new GsonBuilder().registerTypeAdapter(listtype, new Deserializable()).create()))
+                    .build();
 
-        //Think of a TypeToken as a way of creating, manipulating, and querying Type
-        // (and, implicitly Class) objects in a way that respects generics.
-        //you can't pass around generic Class objects at runtime --
-        // you might be able to cast them and pretend they're generic, but they really aren't.
-        Type listtype = new TypeToken<List<StockItem>>() {
-        }.getType();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(
-                        new GsonBuilder().registerTypeAdapter(listtype, new Deserializable()).create()))
-                .build();
+            StockService.StockAPI api = retrofit.create(StockService.StockAPI.class);
+            Call<List<StockItem>> call = api.getStock(query);
 
-        StockService.StockAPI api = retrofit.create(StockService.StockAPI.class);
-        Call<List<StockItem>> call = api.getStock(query);
-
-        call.enqueue(new Callback<List<StockItem>>() {
-            @Override
-            public void onResponse(Call<List<StockItem>> call, Response<List<StockItem>> response) {
-                items = response.body();
-                for (StockItem item : items) {
-                    mDate.add(item.getDate());
-                    mCloseValue.add(item.getClose());
+            call.enqueue(new Callback<List<StockItem>>() {
+                @Override
+                public void onResponse(Call<List<StockItem>> call, Response<List<StockItem>> response) {
+                    items = response.body();
+                    for (StockItem item : items) {
+                        item = new StockItem(item.getSymbol(), item.getClose(), item.getDate());
+                        mStockArrayList.add(item);
+                    }
+                    setData(mStockArrayList, stockSymbol);
                 }
-                setData(mDate, mCloseValue, stockSymbol);
-            }
 
-            @Override
-            public void onFailure(Call<List<StockItem>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<List<StockItem>> call, Throwable t) {
+                    mLineChart.setNoDataText("Error Occurred");
 
-            }
-        });
+                }
+            });
+
+        } else {
+            mStockArrayList = savedInstanceState.getParcelableArrayList("Stocks");
+            setData(mStockArrayList, stockSymbol);
+        }
+
 
     }
 
-    public void setData(ArrayList<String> date, ArrayList<Float> closeValue, String stockSymbol) {
+    public void setData(ArrayList<StockItem> stockItems, String stockSymbol) {
+
+        ArrayList<String> date = new ArrayList<>();
+
         // no description text
         mLineChart.setDescription("Stock's Value Over Time");
-        mLineChart.setNoDataTextDescription(getString(R.string.no_data_text_description));
 
         mLineChart.setScaleEnabled(true);
         mLineChart.setDragEnabled(true);
         mLineChart.setDrawGridBackground(false);
         mLineChart.setHighlightPerDragEnabled(true);
 
+
         // if disabled, scaling can be done on x- and y-axis separately
         mLineChart.setPinchZoom(true);
 
-        mLineChart.setBackgroundColor(Color.LTGRAY);
+        mLineChart.setBackgroundColor(Color.WHITE);
+
 
         //Add Data
         ArrayList<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < closeValue.size(); i++) {
-            entries.add(new Entry(closeValue.get(i), i));
-            Log.v(LOG_TAG, "Close Value: " + closeValue.get(i));
+        for (int i = 0; i < stockItems.size(); i++) {
+
+            entries.add(new Entry(stockItems.get(i).getClose(), i));
+            date.add(stockItems.get(i).getDate());
         }
 
-        LineDataSet mLineDataSet = new LineDataSet(entries, stockSymbol);
+        LineDataSet mLineDataSet = new LineDataSet(entries, stockSymbol.toUpperCase());
         mLineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
 
         data = new LineData(date, mLineDataSet);
-        Log.v(LOG_TAG, String.valueOf(date));
         mLineChart.setData(data);
+        mLineChart.animateX(200);
 
         // get the legend (only possible after setting data)
         Legend l = mLineChart.getLegend();
         l.setForm(Legend.LegendForm.LINE);
         l.setTextSize(11f);
-        l.setTextColor(Color.WHITE);
+        l.setTextColor(Color.RED);
         l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
 
         XAxis xAxis = mLineChart.getXAxis();
         xAxis.setTextSize(11f);
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextColor(Color.RED);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawLabels(true);
-        //xAxis.setDrawAxisLine(true);
+        xAxis.setLabelsToSkip(0);
 
         YAxis leftAxis = mLineChart.getAxisLeft();
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawZeroLine(false);
-        //leftAxis.setGranularityEnabled(true);
 
         YAxis rightAxis = mLineChart.getAxisRight();
         rightAxis.setTextColor(ColorTemplate.getHoloBlue());
         rightAxis.setDrawGridLines(false);
         rightAxis.setDrawZeroLine(false);
-        //rightAxis.setGranularityEnabled(true);
 
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("Stocks", mStockArrayList);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
 }

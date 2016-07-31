@@ -12,4 +12,7 @@
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="detail">Stock Detail</string>
     <string name="no_data_text_description">Loading…</string>
+    <string name="positive_text">OK</string>
+    <string name="negative_text">CANCEL</string>
+    <string name="stock">stock</string>
 </resources>

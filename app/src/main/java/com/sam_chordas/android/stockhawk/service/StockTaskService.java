@@ -18,6 +18,8 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -87,7 +89,7 @@ public class StockTaskService extends GcmTaskService {
                 }
                 Log.v(LOG_TAG, String.valueOf(mStoredSymbols));
                 mStoredSymbols.replace(mStoredSymbols.length() - 1, mStoredSymbols.length(), ")");
-                Log.v(LOG_TAG, "Corrected: "+String.valueOf(mStoredSymbols));
+                Log.v(LOG_TAG, "Corrected: " + String.valueOf(mStoredSymbols));
                 try {
                     urlStringBuilder.append(URLEncoder.encode(mStoredSymbols.toString(), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
@@ -113,7 +115,7 @@ public class StockTaskService extends GcmTaskService {
         int result = GcmNetworkManager.RESULT_FAILURE;
 
         urlString = urlStringBuilder.toString();
-        Log.v(LOG_TAG,urlString);
+        Log.v(LOG_TAG, urlString);
         try {
             getResponse = fetchData(urlString);
             result = GcmNetworkManager.RESULT_SUCCESS;
@@ -125,15 +127,27 @@ public class StockTaskService extends GcmTaskService {
                     mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
                             null, null);
                 }
-                mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
-                        Utils.quoteJsonToContentVals(getResponse));
+                Log.v(LOG_TAG, String.valueOf(Utils.sInvalidSymbol));
+                if (Utils.quoteJsonToContentVals(getResponse).size() == 0)
+                    Utils.sInvalidSymbol = true;
+
+
+                else {
+                    mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
+                            Utils.quoteJsonToContentVals(getResponse));
+                    Utils.sInvalidSymbol = false;
+
+                }
+                Log.v(LOG_TAG, String.valueOf(Utils.sInvalidSymbol));
+
             } catch (RemoteException | OperationApplicationException e) {
                 Log.e(LOG_TAG, "Error applying batch insert", e);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return result;
     }
 

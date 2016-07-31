@@ -1,6 +1,9 @@
 package com.sam_chordas.android.stockhawk.rest;
 
 import android.content.ContentProviderOperation;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
@@ -23,12 +26,14 @@ public class Utils {
     private static String LOG_TAG = Utils.class.getSimpleName();
 
     public static boolean showPercent = true;
+    public static boolean sInvalidSymbol=false;
 
-    public static ArrayList quoteJsonToContentVals(String JSON) {
+    public static ArrayList quoteJsonToContentVals(String JSON) throws JSONException {
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         JSONObject jsonObject = null;
         JSONArray resultsArray = null;
         if (JSON != null)
+
             try {
                 jsonObject = new JSONObject(JSON);
                 if (jsonObject != null && jsonObject.length() != 0) {
@@ -37,6 +42,10 @@ public class Utils {
                     if (count == 1) {
                         jsonObject = jsonObject.getJSONObject("results")
                                 .getJSONObject("quote");
+                        if (jsonObject.getString("Bid").equals("null")) {
+                            Log.v(LOG_TAG,"This part executed");
+                            return new ArrayList();
+                        }
                         batchOperations.add(buildBatchOperation(jsonObject));
                     } else {
                         resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
@@ -44,6 +53,10 @@ public class Utils {
                         if (resultsArray != null && resultsArray.length() != 0) {
                             for (int i = 0; i < resultsArray.length(); i++) {
                                 jsonObject = resultsArray.getJSONObject(i);
+                                if (jsonObject.getString("Bid").equals("null")) {
+                                    Log.v(LOG_TAG,"This part executed");
+                                    return new ArrayList();
+                                }
                                 batchOperations.add(buildBatchOperation(jsonObject));
                             }
                         }
@@ -69,7 +82,7 @@ public class Utils {
         }
         change = change.substring(1, change.length());
         double round = (double) Math.round(Double.parseDouble(change) * 100) / 100;
-        change = String.format(Locale.getDefault(),"%.2f", round);
+        change = String.format(Locale.getDefault(), "%.2f", round);
         StringBuilder changeBuffer = new StringBuilder(change);
         changeBuffer.insert(0, weight);
         changeBuffer.append(ampersand);
@@ -117,4 +130,20 @@ public class Utils {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return df.format(c.getTime());
     }
+
+    //Get the network status
+    public static boolean isConnected(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+    }
+
+    public static boolean containWhiteSpace(String string)
+    {
+        return string.contains(" ");
+    }
+
 }
