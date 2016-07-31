@@ -37,7 +37,8 @@ public class StockIntentService extends IntentService {
         // scheduling a task.
         stockTaskService.onRunTask(new TaskParams(intent.getStringExtra("tag"), args));
 
-        if (Utils.sInvalidSymbol)
+        if (Utils.sInvalidSymbol) {
             handler.post(new DisplayToast(this, "Invalid Stock Symbol"));
+        }
     }
 }

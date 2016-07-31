@@ -128,12 +128,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                             .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
                                 @Override
                                 public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                                    //input.toString().replaceAll(" ","");
-                                    // On FAB click, receive user input. Make sure the stock doesn't already exist
-                                    // in the DB and proceed accordingly
-                                    //for (int i=0;i<input.toString().length();i++)
-                                    //String ignoreCase = " ";
-                                    dialog.getActionButton(DialogAction.POSITIVE).setEnabled(false);
 
                                     if (input.toString().contains(" ")) {
                                         Log.v(LOG_TAG, "This part executed");
@@ -145,8 +139,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                                         mInputSymbol = input.toString();
 
                                     }
-
-
                                 }
                             })
                             .inputRangeRes(1,20,R.color.material_red_700)
