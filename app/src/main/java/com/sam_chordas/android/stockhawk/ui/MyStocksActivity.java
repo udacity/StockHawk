@@ -1,5 +1,6 @@
 package com.sam_chordas.android.stockhawk.ui;
 
+import android.app.DialogFragment;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -9,22 +10,17 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.text.InputType;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.stetho.Stetho;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.PeriodicTask;
@@ -118,55 +114,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isConnected) {
-                    new MaterialDialog.Builder(mContext).title(R.string.symbol_search)
-                            .content(R.string.content_test)
-                            .inputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS)
-                            .positiveText(R.string.positive_text)
-                            .negativeText(R.string.negative_text)
-                            .alwaysCallInputCallback()
-                            .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
-                                @Override
-                                public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-
-                                    if (input.toString().contains(" ")) {
-                                        Log.v(LOG_TAG, "This part executed");
-                                        dialog.setContent("WhiteSpace not allowed");
-                                        dialog.getActionButton(DialogAction.POSITIVE).setEnabled(false);
-                                    } else {
-                                        dialog.setContent(R.string.content_test);
-                                        dialog.getActionButton(DialogAction.POSITIVE).setEnabled(true);
-                                        mInputSymbol = input.toString();
-
-                                    }
-                                }
-                            })
-                            .inputRangeRes(1,20,R.color.material_red_700)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    Cursor c = getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
-                                            new String[]{QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
-                                            new String[]{mInputSymbol}, null);
-                                    if ((c != null ? c.getCount() : 0) != 0) {
-                                        Toast toast =
-                                                Toast.makeText(MyStocksActivity.this, "This stock is already saved!",
-                                                        Toast.LENGTH_LONG);
-                                        toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
-                                        toast.show();
-                                        return;
-                                    } else {
-                                        // Add the stock to DB
-                                        mServiceIntent.putExtra("tag", "add");
-                                        mServiceIntent.putExtra("symbol", mInputSymbol.toString());
-                                        startService(mServiceIntent);
-                                    }
-                                    if (c != null) {
-                                        c.close();
-                                    }
-                                }
-                            })
-                            .show();
+                if (Utils.isConnected(mContext)) {
+                    DialogFragment fragment = new MyDialogFragment();
+                    fragment.show(getFragmentManager(), "Dialog");
                 } else {
                     networkToast();
                 }

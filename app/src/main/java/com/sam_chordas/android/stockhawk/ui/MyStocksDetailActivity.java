@@ -90,13 +90,18 @@ public class MyStocksDetailActivity extends AppCompatActivity {
                     for (StockItem item : items) {
                         item = new StockItem(item.getSymbol(), item.getClose(), item.getDate());
                         mStockArrayList.add(item);
+                        Log.v(LOG_TAG, response.raw().toString());
                     }
                     setData(mStockArrayList, stockSymbol);
                 }
 
                 @Override
                 public void onFailure(Call<List<StockItem>> call, Throwable t) {
-                    mLineChart.setNoDataText("Error Occurred");
+                    if (!Utils.isConnected(getApplicationContext()))
+                        mLineChart.setNoDataText("No Internet Connection");
+
+                    else
+                        mLineChart.setNoDataText("Error Occurred");
 
                 }
             });
@@ -180,5 +185,4 @@ public class MyStocksDetailActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
-
 }
