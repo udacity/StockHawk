@@ -15,6 +15,7 @@ public class QuoteProvider {
 
   static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
+  //This is used to build Uri with particular table
   interface Path{
     String QUOTES = "quotes";
   }
@@ -27,6 +28,8 @@ public class QuoteProvider {
     return builder.build();
   }
 
+  //This is declared to access different end point in the table
+
   @TableEndpoint(table = QuoteDatabase.QUOTES)
   public static class Quotes{
     @ContentUri(
@@ -35,12 +38,15 @@ public class QuoteProvider {
     )
     public static final Uri CONTENT_URI = buildUri(Path.QUOTES);
 
+
+    //This is for accessing specific quote
     @InexactContentUri(
         name = "QUOTE_ID",
         path = Path.QUOTES + "/*",
         type = "vnd.android.cursor.item/quote",
         whereColumn = QuoteColumns.SYMBOL,
-        pathSegment = 1
+            //Path Segment is basically used for accessing path segment in uri
+            pathSegment = 1
     )
     public static Uri withSymbol(String symbol){
       return buildUri(Path.QUOTES, symbol);
