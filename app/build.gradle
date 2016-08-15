@@ -2,37 +2,37 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion "23.0.1"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
 
-  defaultConfig {
-    applicationId "com.example.sam_chordas.stockhawk"
-    minSdkVersion 15
-    targetSdkVersion 23
-    versionCode 1
-    versionName "1.0"
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        applicationId "com.example.sam_chordas.stockhawk"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
     }
-  }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 repositories {
-  maven { url "https://jitpack.io" }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
 
-  compile 'com.google.android.gms:play-services-gcm:8.4.0'
-  compile 'com.squareup.okhttp:okhttp:2.5.0'
-  apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
-  compile 'net.simonvt.schematic:schematic:0.6.3'
-  compile 'com.melnykov:floatingactionbutton:1.2.0'
-  compile 'com.android.support:design:23.1.1'
-  compile('com.github.afollestad.material-dialogs:core:0.8.5.7@aar') {
-    transitive = true
-  }
+    compile 'com.google.android.gms:play-services-gcm:9.4.0'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
+    compile 'net.simonvt.schematic:schematic:0.6.3'
+    compile 'com.melnykov:floatingactionbutton:1.2.0'
+    compile 'com.android.support:design:24.1.1'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.7@aar') {
+        transitive = true
+    }
 }
