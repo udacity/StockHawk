@@ -12,4 +12,6 @@
   <string name="add_new_stock">Add new stock to watchlist</string>
   <string name="network_toast">Uh-oh! This app requires an internet connection</string>
   <string name="symbol_not_found">Sorry. No stock found for that symbol</string>
+
+  <string name="widget_title" translatable="false">Market Today</string>
 </resources>
