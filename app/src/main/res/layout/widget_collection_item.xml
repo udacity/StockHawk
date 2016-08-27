@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/touch_selector_dark"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:padding="@dimen/widget_margin">
+
+
+    <TextView
+        android:id="@+id/stock_symbol"
+        style="@style/StockSymbolTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:gravity="start|center_vertical"
+        tools:text="GOOG"/>
+
+    <TextView
+        android:id="@+id/change"
+        style="@style/PercentChangeTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="3dp"
+        android:background="@drawable/percent_change_pill"
+        android:paddingEnd="3dp"
+        android:paddingStart="3dp"
+        tools:text="100%"/>
+
+</FrameLayout>
