@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <permission
         android:name="com.google.android.gcm.demo.permission.C2D_MESSAGE"
@@ -28,18 +29,44 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.sam_chordas.android.stockhawk.service.StockTaskService"
+        <activity
+            android:name="com.sam_chordas.android.stockhawk.ui.LineGraphActivity"
+            android:label="@string/app_name"
+            android:theme="@style/TransparentWindowStyle"
+            android:parentActivityName=".ui.MyStocksActivity">
+        </activity>
+
+        <service
+            android:name="com.sam_chordas.android.stockhawk.service.StockTaskService"
             android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
             </intent-filter>
         </service>
+
         <service android:name="com.sam_chordas.android.stockhawk.service.StockIntentService" />
+
+        <service
+            android:name="com.sam_chordas.android.stockhawk.widget.StocksWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <provider
             android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
             android:name="com.sam_chordas.android.stockhawk.data.generated.QuoteProvider"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <receiver android:name="com.sam_chordas.android.stockhawk.widget.StocksWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+
+        </receiver>
+
     </application>
 
 </manifest>

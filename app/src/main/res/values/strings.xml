@@ -1,13 +1,20 @@
 <resources>
-  <string name="app_name">Stock Hawk</string>
 
-  <string name="action_example">Example action</string>
+    <string name="app_name" translatable="false">Stock Hawk</string>
 
-  <string name="action_settings">Settings</string>
-  <string name="action_change_units">Change Units</string>
-  <string name="symbol_search">Symbol Search</string>
-  <string name="content_test">Search for a Stock Symbol</string>
-  <string name="input_hint">FB</string>
-  <string name="input_prefill"></string>
-  <string name="network_toast">Uh-oh! This app requires an internet connection</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="action_change_units">Change Units</string>
+    <string name="symbol_search">Symbol Search</string>
+    <string name="content_test">Search for a Stock Symbol</string>
+    <string name="input_hint" translatable="false">FB</string>
+    <string name="input_prefill" translatable="false"></string>
+
+    <string name="network_toast">Uh-oh! This app requires an internet connection</string>
+    <string name="stock_not_found">Uh-oh! Could not find stock symbol</string>
+    <string name="stock_found">This stock is already saved!</string>
+    <string name="historical_data">Graph showing historical stock data for the past year</string>
+    <string name="one_year">(1 Year)</string>
+    <string name="default_value">Month: Value</string>
+
 </resources>
