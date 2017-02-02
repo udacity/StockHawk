@@ -9,9 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by sam_chordas on 10/8/15.
- */
 public class Utils {
 
   private static String LOG_TAG = Utils.class.getSimpleName();
@@ -24,7 +21,7 @@ public class Utils {
     JSONArray resultsArray = null;
     try{
       jsonObject = new JSONObject(JSON);
-      if (jsonObject != null && jsonObject.length() != 0){
+      if (jsonObject != null && jsonObject.length() != 0 && !(((jsonObject.getJSONObject("query")).getJSONObject("results")).getJSONObject("quote")).getString("Bid").equals("null")) {
         jsonObject = jsonObject.getJSONObject("query");
         int count = Integer.parseInt(jsonObject.getString("count"));
         if (count == 1){
@@ -34,7 +31,7 @@ public class Utils {
         } else{
           resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
 
-          if (resultsArray != null && resultsArray.length() != 0){
+          if (resultsArray != null && resultsArray.length() != 0) {
             for (int i = 0; i < resultsArray.length(); i++){
               jsonObject = resultsArray.getJSONObject(i);
               batchOperations.add(buildBatchOperation(jsonObject));
