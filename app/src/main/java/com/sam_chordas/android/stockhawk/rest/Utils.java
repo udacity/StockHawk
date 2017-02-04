@@ -21,7 +21,7 @@ public class Utils {
     JSONArray resultsArray = null;
     try{
       jsonObject = new JSONObject(JSON);
-      if (jsonObject != null && jsonObject.length() != 0 && !(((jsonObject.getJSONObject("query")).getJSONObject("results")).getJSONObject("quote")).getString("Bid").equals("null")) {
+      if (jsonObject != null && jsonObject.length() != 0) {
         jsonObject = jsonObject.getJSONObject("query");
         int count = Integer.parseInt(jsonObject.getString("count"));
         if (count == 1){
@@ -88,5 +88,18 @@ public class Utils {
       e.printStackTrace();
     }
     return builder.build();
+  }
+
+  public static boolean checkIfValidResponse(String response) {
+      JSONObject jsonObject = null;
+      try {
+          jsonObject = new JSONObject(response);
+          if (jsonObject != null && jsonObject.length() != 0 && !(((jsonObject.getJSONObject("query")).getJSONObject("results")).getJSONObject("quote")).getString("Bid").equals("null")) {
+              return true;
+          }
+      } catch (JSONException e) {
+          Log.e(LOG_TAG, e.toString());
+      }
+      return false;
   }
 }
