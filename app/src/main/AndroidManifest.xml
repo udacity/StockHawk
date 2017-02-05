@@ -17,7 +17,16 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+
+        <receiver android:name="StockHawkAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/stockhawk_appwidget_info"/>
+        </receiver>
 
         <activity
             android:name="com.sam_chordas.android.stockhawk.ui.MyStocksActivity"
