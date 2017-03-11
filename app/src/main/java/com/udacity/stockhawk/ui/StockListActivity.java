@@ -28,164 +28,167 @@ import timber.log.Timber;
 
 public class StockListActivity extends DaggerCleanActivity<StockListPresenter, StockListView, StockListComponent>
    implements StockListView, SwipeRefreshLayout.OnRefreshListener,
-        StockAdapter.StockAdapterOnClickHandler {
+   StockAdapter.StockAdapterOnClickHandler {
+   @SuppressWarnings("WeakerAccess")
+   @BindView(R.id.recycler_view)
+   RecyclerView stockRecyclerView;
+   @SuppressWarnings("WeakerAccess")
+   @BindView(R.id.swipe_refresh)
+   SwipeRefreshLayout swipeRefreshLayout;
+   @SuppressWarnings("WeakerAccess")
+   @BindView(R.id.error)
+   TextView error;
+   private StockAdapter adapter;
 
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.recycler_view)
-    RecyclerView stockRecyclerView;
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.swipe_refresh)
-    SwipeRefreshLayout swipeRefreshLayout;
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.error)
-    TextView error;
-    private StockAdapter adapter;
+   @Inject
+   public StockListActivity() {
+   }
 
-    @Inject
-    public StockListActivity() {
-    }
+   @Override
+   public void onClick(String symbol) {
+      Timber.d("Symbol clicked: %s", symbol);
+   }
 
-    @Override
-    public void onClick(String symbol) {
-        Timber.d("Symbol clicked: %s", symbol);
-    }
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+      setContentView(R.layout.activity_main);
+      ButterKnife.bind(this);
 
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+      adapter = new StockAdapter(this, this);
+      stockRecyclerView.setAdapter(adapter);
+      stockRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new StockAdapter(this, this);
-        stockRecyclerView.setAdapter(adapter);
-        stockRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+      swipeRefreshLayout.setOnRefreshListener(this);
+      swipeRefreshLayout.setRefreshing(true);
+      onRefresh();
 
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setRefreshing(true);
-        onRefresh();
+      new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+         @Override
+         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return false;
+         }
 
-        QuoteSyncJob.initialize(this);
+         @Override
+         public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            String symbol = adapter.getSymbolAtPosition(viewHolder.getAdapterPosition());
+            PrefUtils.removeStock(StockListActivity.this, symbol);
+            getPresenter().deleteSymbolFromStock(symbol);
+         }
+      }).attachToRecyclerView(stockRecyclerView);
+   }
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
+   @Override protected void onPostCreate(Bundle savedInstanceState) {
+      super.onPostCreate(savedInstanceState);
+      QuoteSyncJob.initialize(this);
+      getPresenter().startLoader(getSupportLoaderManager());
+   }
 
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                String symbol = adapter.getSymbolAtPosition(viewHolder.getAdapterPosition());
-                PrefUtils.removeStock(StockListActivity.this, symbol);
-                getPresenter().deleteSymbolFromStock(symbol);
-            }
-        }).attachToRecyclerView(stockRecyclerView);
+   @Override protected StockListComponent buildComponent() {
+      return DaggerStockListComponent.builder()
+         .appComponent(getApplicationComponent())
+         .build();
+   }
 
+   private boolean networkUp() {
+      ConnectivityManager cm =
+         (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+      NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+      return networkInfo != null && networkInfo.isConnectedOrConnecting();
+   }
 
-    }
+   @Override
+   public void onRefresh() {
 
-    @Override protected StockListComponent buildComponent() {
-        return DaggerStockListComponent.builder()
-           .appComponent(getApplicationComponent())
-           .build();
-    }
+      QuoteSyncJob.syncImmediately(this);
 
-    private boolean networkUp() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnectedOrConnecting();
-    }
+      if (!networkUp() && adapter.getItemCount() == 0) {
+         swipeRefreshLayout.setRefreshing(false);
+         error.setText(getString(R.string.error_no_network));
+         error.setVisibility(View.VISIBLE);
+      } else if (!networkUp()) {
+         swipeRefreshLayout.setRefreshing(false);
+         Toast.makeText(this, R.string.toast_no_connectivity, Toast.LENGTH_LONG).show();
+      } else if (PrefUtils.getStocks(this).size() == 0) {
+         swipeRefreshLayout.setRefreshing(false);
+         error.setText(getString(R.string.error_no_stocks));
+         error.setVisibility(View.VISIBLE);
+      } else {
+         error.setVisibility(View.GONE);
+      }
+   }
 
-    @Override
-    public void onRefresh() {
+   public void button(@SuppressWarnings("UnusedParameters") View view) {
+      new AddStockDialog().show(getFragmentManager(), "StockDialogFragment");
+   }
 
-        QuoteSyncJob.syncImmediately(this);
+   void addStock(String symbol) {
+      if (symbol != null && !symbol.isEmpty()) {
 
-        if (!networkUp() && adapter.getItemCount() == 0) {
-            swipeRefreshLayout.setRefreshing(false);
-            error.setText(getString(R.string.error_no_network));
-            error.setVisibility(View.VISIBLE);
-        } else if (!networkUp()) {
-            swipeRefreshLayout.setRefreshing(false);
-            Toast.makeText(this, R.string.toast_no_connectivity, Toast.LENGTH_LONG).show();
-        } else if (PrefUtils.getStocks(this).size() == 0) {
-            swipeRefreshLayout.setRefreshing(false);
-            error.setText(getString(R.string.error_no_stocks));
-            error.setVisibility(View.VISIBLE);
-        } else {
-            error.setVisibility(View.GONE);
-        }
-    }
+         if (networkUp()) {
+            swipeRefreshLayout.setRefreshing(true);
+         } else {
+            String message = getString(R.string.toast_stock_added_no_connectivity, symbol);
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+         }
 
-    public void button(@SuppressWarnings("UnusedParameters") View view) {
-        new AddStockDialog().show(getFragmentManager(), "StockDialogFragment");
-    }
+         PrefUtils.addStock(this, symbol);
+         QuoteSyncJob.syncImmediately(this);
+      }
+   }
 
-    void addStock(String symbol) {
-        if (symbol != null && !symbol.isEmpty()) {
+   @Override
+   public void setStockData(Cursor data) {
+      swipeRefreshLayout.setRefreshing(false);
 
-            if (networkUp()) {
-                swipeRefreshLayout.setRefreshing(true);
-            } else {
-                String message = getString(R.string.toast_stock_added_no_connectivity, symbol);
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            }
+      if (data.getCount() != 0) {
+         error.setVisibility(View.GONE);
+      }
+      adapter.setCursor(data);
+   }
 
-            PrefUtils.addStock(this, symbol);
-            QuoteSyncJob.syncImmediately(this);
-        }
-    }
+   @Override
+   public void resetStock() {
+      swipeRefreshLayout.setRefreshing(false);
+      adapter.setCursor(null);
+   }
 
-    @Override
-    public void setStockData(Cursor data){
-        swipeRefreshLayout.setRefreshing(false);
+   private void setDisplayModeMenuItemIcon(MenuItem item) {
+      if (PrefUtils.getDisplayMode(this)
+         .equals(getString(R.string.pref_display_mode_absolute_key))) {
+         item.setIcon(R.drawable.ic_percentage);
+      } else {
+         item.setIcon(R.drawable.ic_dollar);
+      }
+   }
 
-        if (data.getCount() != 0) {
-            error.setVisibility(View.GONE);
-        }
-        adapter.setCursor(data);
-    }
+   @Override
+   public boolean onCreateOptionsMenu(Menu menu) {
+      getMenuInflater().inflate(R.menu.main_activity_settings, menu);
+      MenuItem item = menu.findItem(R.id.action_change_units);
+      setDisplayModeMenuItemIcon(item);
+      return true;
+   }
 
-    @Override
-    public void resetStock(){
-        swipeRefreshLayout.setRefreshing(false);
-        adapter.setCursor(null);
-    }
+   @Override
+   public boolean onOptionsItemSelected(MenuItem item) {
+      int id = item.getItemId();
 
-
-    private void setDisplayModeMenuItemIcon(MenuItem item) {
-        if (PrefUtils.getDisplayMode(this)
-                .equals(getString(R.string.pref_display_mode_absolute_key))) {
-            item.setIcon(R.drawable.ic_percentage);
-        } else {
-            item.setIcon(R.drawable.ic_dollar);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_activity_settings, menu);
-        MenuItem item = menu.findItem(R.id.action_change_units);
-        setDisplayModeMenuItemIcon(item);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_change_units) {
-            PrefUtils.toggleDisplayMode(this);
-            setDisplayModeMenuItemIcon(item);
-            adapter.notifyDataSetChanged();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+      if (id == R.id.action_change_units) {
+         PrefUtils.toggleDisplayMode(this);
+         setDisplayModeMenuItemIcon(item);
+         adapter.notifyDataSetChanged();
+         return true;
+      }
+      return super.onOptionsItemSelected(item);
+   }
 }
 
-interface StockListView{
-public void setStockData(Cursor data);
-    public void resetStock();
+interface StockListView {
+
+   public void setStockData(Cursor data);
+
+   public void resetStock();
+
 }

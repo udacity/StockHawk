@@ -3,6 +3,10 @@ package com.udacity.stockhawk.data.repository;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 
 import com.udacity.stockhawk.core.App;
 import com.udacity.stockhawk.data.provider.Contract;
@@ -13,11 +17,18 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
+import io.reactivex.processors.PublishProcessor;
 
 
-public class StockRepositoryImpl implements StockRepository {
+
+
+public class StockRepositoryImpl implements StockRepository, LoaderManager.LoaderCallbacks<Cursor> {
+
+   private static final int STOCK_LOADER = 0;
    private final Context context;
    private ContentResolver contentResolver;
+   private final PublishProcessor<Cursor> resolverUpdatesProcessor = PublishProcessor.create();
+   private final PublishProcessor<Boolean> resolverResetProcessor = PublishProcessor.create();
 
    @Inject public StockRepositoryImpl(ContentResolver contentResolver, App app) {
       this.contentResolver = contentResolver;
@@ -27,9 +38,9 @@ public class StockRepositoryImpl implements StockRepository {
    @Override public Single<Cursor> getStockCursor() {
       return Single.create(new SingleOnSubscribe<Cursor>() {
          @Override public void subscribe(SingleEmitter<Cursor> e) throws Exception {
-            final Cursor stockCursor = contentResolver.query(Contract.Quote.URI,Contract.Quote.QUOTE_COLUMNS.toArray(new String[]{}),
+            final Cursor stockCursor = contentResolver.query(Contract.Quote.URI, Contract.Quote.QUOTE_COLUMNS.toArray(new String[]{}),
                null, null, Contract.Quote.COLUMN_SYMBOL);
-            if (stockCursor != null){
+            if (stockCursor != null) {
                e.onSuccess(stockCursor);
             } else {
                e.onError(new Throwable("No result for the given uri"));
@@ -40,8 +51,36 @@ public class StockRepositoryImpl implements StockRepository {
 
    @Override public Completable deleteSymbolFromStock(String symbol) {
       return Completable.create(e -> {
-         contentResolver.delete(Contract.Quote.makeUriForStock(symbol), null, null);
+         context.getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
          e.onComplete();
       });
+   }
+
+   @Override public PublishProcessor<Cursor> getContentResolverUpdateProcessor() {
+      return resolverUpdatesProcessor;
+   }
+
+   @Override public PublishProcessor<Boolean> getContentResolverResetProcessor() {
+      return resolverResetProcessor;
+   }
+
+   @Override public void startLoader(android.support.v4.app.LoaderManager supportLoaderManager) {
+      supportLoaderManager.initLoader(STOCK_LOADER, null, this);
+   }
+
+
+   @Override public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+      return new CursorLoader(context,
+         Contract.Quote.URI,
+         Contract.Quote.QUOTE_COLUMNS.toArray(new String[]{}),
+         null, null, Contract.Quote.COLUMN_SYMBOL);
+   }
+
+   @Override public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+      resolverUpdatesProcessor.onNext(data);
+   }
+
+   @Override public void onLoaderReset(Loader<Cursor> loader) {
+      resolverResetProcessor.onNext(true);
    }
 }

@@ -137,10 +137,8 @@ public final class QuoteSyncJob {
 
 
     public static synchronized void initialize(final Context context) {
-
         schedulePeriodic(context);
         syncImmediately(context);
-
     }
 
     public static synchronized void syncImmediately(Context context) {

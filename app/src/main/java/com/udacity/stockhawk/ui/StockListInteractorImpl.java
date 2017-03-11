@@ -2,6 +2,7 @@ package com.udacity.stockhawk.ui;
 
 
 import android.database.Cursor;
+import android.support.v4.app.LoaderManager;
 
 import com.udacity.stockhawk.data.repository.StockRepository;
 
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import io.reactivex.processors.PublishProcessor;
 
 public class StockListInteractorImpl implements StockListInteractor {
    private StockRepository repository;
@@ -25,6 +27,18 @@ public class StockListInteractorImpl implements StockListInteractor {
    @Override public Completable deleteSymbolFromStock(String symbol) {
       return repository.deleteSymbolFromStock(symbol);
    }
+
+   @Override public PublishProcessor<Cursor> getContentResolverUpdateProcessor() {
+      return repository.getContentResolverUpdateProcessor();
+   }
+
+   @Override public PublishProcessor<Boolean> getContentResolverResetProcessor() {
+      return repository.getContentResolverResetProcessor();
+   }
+
+   @Override public void startLoader(LoaderManager supportLoaderManager) {
+      repository.startLoader(supportLoaderManager);
+   }
 }
 
 interface StockListInteractor {
@@ -32,4 +46,10 @@ interface StockListInteractor {
    Single<Cursor> loadStock();
 
    Completable deleteSymbolFromStock(String symbol);
+
+   public PublishProcessor<Cursor> getContentResolverUpdateProcessor();
+
+   public PublishProcessor<Boolean> getContentResolverResetProcessor();
+
+   void startLoader(LoaderManager supportLoaderManager);
 }
