@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.udacity.stockhawk.R;
-import com.udacity.stockhawk.data.Contract;
-import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.data.provider.Contract;
+import com.udacity.stockhawk.utils.PrefUtils;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

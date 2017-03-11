@@ -1,4 +1,4 @@
-package com.udacity.stockhawk.data;
+package com.udacity.stockhawk.data.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import javax.inject.Inject;
 
 
 public class StockProvider extends ContentProvider {
@@ -27,6 +29,8 @@ public class StockProvider extends ContentProvider {
         return matcher;
     }
 
+    @Inject public StockProvider() {
+    }
 
     @Override
     public boolean onCreate() {

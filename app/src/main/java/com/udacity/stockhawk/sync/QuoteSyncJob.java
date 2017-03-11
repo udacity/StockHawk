@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.udacity.stockhawk.data.Contract;
-import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.data.provider.Contract;
+import com.udacity.stockhawk.utils.PrefUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -163,8 +163,6 @@ public final class QuoteSyncJob {
             JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
             scheduler.schedule(builder.build());
-
-
         }
     }
 

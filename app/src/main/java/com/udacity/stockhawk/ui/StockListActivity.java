@@ -5,11 +5,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -20,19 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
-import com.udacity.stockhawk.data.Contract;
-import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.core.ui.activity.DaggerCleanActivity;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
+import com.udacity.stockhawk.utils.PrefUtils;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
-        SwipeRefreshLayout.OnRefreshListener,
+public class StockListActivity extends DaggerCleanActivity<StockListPresenter, StockListView, StockListComponent>
+   implements StockListView, SwipeRefreshLayout.OnRefreshListener,
         StockAdapter.StockAdapterOnClickHandler {
 
-    private static final int STOCK_LOADER = 0;
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recycler_view)
     RecyclerView stockRecyclerView;
@@ -43,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.error)
     TextView error;
     private StockAdapter adapter;
+
+    @Inject
+    public StockListActivity() {
+    }
 
     @Override
     public void onClick(String symbol) {
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         onRefresh();
 
         QuoteSyncJob.initialize(this);
-        getSupportLoaderManager().initLoader(STOCK_LOADER, null, this);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
@@ -76,12 +76,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 String symbol = adapter.getSymbolAtPosition(viewHolder.getAdapterPosition());
-                PrefUtils.removeStock(MainActivity.this, symbol);
-                getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
+                PrefUtils.removeStock(StockListActivity.this, symbol);
+                getPresenter().deleteSymbolFromStock(symbol);
             }
         }).attachToRecyclerView(stockRecyclerView);
 
 
+    }
+
+    @Override protected StockListComponent buildComponent() {
+        return DaggerStockListComponent.builder()
+           .appComponent(getApplicationComponent())
+           .build();
     }
 
     private boolean networkUp() {
@@ -132,15 +138,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this,
-                Contract.Quote.URI,
-                Contract.Quote.QUOTE_COLUMNS.toArray(new String[]{}),
-                null, null, Contract.Quote.COLUMN_SYMBOL);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void setStockData(Cursor data){
         swipeRefreshLayout.setRefreshing(false);
 
         if (data.getCount() != 0) {
@@ -149,9 +147,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         adapter.setCursor(data);
     }
 
-
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void resetStock(){
         swipeRefreshLayout.setRefreshing(false);
         adapter.setCursor(null);
     }
@@ -186,4 +183,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
         return super.onOptionsItemSelected(item);
     }
+}
+
+interface StockListView{
+public void setStockData(Cursor data);
+    public void resetStock();
 }
