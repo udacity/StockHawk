@@ -6,6 +6,10 @@ import android.os.Bundle;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.core.ui.activity.BaseActivity;
 
+import static com.udacity.stockhawk.ui.StockActivity.STOCK_DETAILS_FRAGMENT_TAG;
+import static com.udacity.stockhawk.ui.StockActivity.STOCK_EXTRA;
+import static com.udacity.stockhawk.ui.StockActivity.STOCK_HISTORY_EXTRA;
+
 /**
  * Created by Durdin on 13/03/2017.
  */
@@ -19,13 +23,15 @@ public class StockDetailActivity extends BaseActivity {
 
       Intent intent = getIntent();
 
-//      if (intent == null || !intent.hasExtra(MOVIE_EXTRA)) {
-//         throw new NullPointerException("Movie can't be null");
-//      }
+      if (intent == null || !intent.hasExtra(STOCK_EXTRA)) {
+         throw new NullPointerException("Movie can't be null");
+      }
+      final String symbol = intent.getStringExtra(STOCK_EXTRA);
+      final String hystory = intent.getStringExtra(STOCK_HISTORY_EXTRA);
 
-//      MovieDetailFragment fragment = MovieDetailFragment.newInstance(movie, videos, reviews);
-//      getSupportFragmentManager().beginTransaction()
-//         .replace(R.id.movie_detail_container, fragment, MOVIE_DETAILS_FRAGMENT_TAG)
-//         .commit();
+      StockDetailFragment fragment = StockDetailFragment.newInstance(symbol, hystory);
+      getSupportFragmentManager().beginTransaction()
+         .replace(R.id.stock_detail_container, fragment, STOCK_DETAILS_FRAGMENT_TAG)
+         .commit();
    }
 }

@@ -90,5 +90,5 @@ dependencies {
     compile 'com.yahoofinance-api:YahooFinanceAPI:3.5.0'
     compile 'com.jakewharton.timber:timber:4.4.0'
     compile 'net.sf.opencsv:opencsv:2.3'
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    compile 'com.github.lecho:hellocharts-android:v1.5.8'
 }
