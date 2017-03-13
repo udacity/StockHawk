@@ -12,11 +12,11 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.processors.PublishProcessor;
 
-public class StockListInteractorImpl implements StockListInteractor {
+public class StockInteractorImpl implements StockInteractor {
    private StockRepository repository;
 
    @Inject
-   public StockListInteractorImpl(StockRepository repository) {
+   public StockInteractorImpl(StockRepository repository) {
       this.repository = repository;
    }
 
@@ -41,7 +41,7 @@ public class StockListInteractorImpl implements StockListInteractor {
    }
 }
 
-interface StockListInteractor {
+interface StockInteractor {
 
    Single<Cursor> loadStock();
 

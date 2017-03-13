@@ -1,7 +1,6 @@
 package com.udacity.stockhawk.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -20,48 +19,52 @@ import butterknife.ButterKnife;
 
 public class AddStockDialog extends DialogFragment {
 
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.dialog_stock)
-    EditText stock;
+   @SuppressWarnings("WeakerAccess")
+   @BindView(R.id.dialog_stock)
+   EditText stock;
+   private OnStockDialogClick onStockDialogClick;
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+   public AddStockDialog(OnStockDialogClick onStockDialogClick) {
+      this.onStockDialogClick = onStockDialogClick;
+   }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+   @Override
+   public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        @SuppressLint("InflateParams") View custom = inflater.inflate(R.layout.add_stock_dialog, null);
+      AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        ButterKnife.bind(this, custom);
+      LayoutInflater inflater = LayoutInflater.from(getActivity());
+      @SuppressLint("InflateParams") View custom = inflater.inflate(R.layout.add_stock_dialog, null);
 
-        stock.setOnEditorActionListener((v, actionId, event) -> {
-            addStock();
-            return true;
-        });
-        builder.setView(custom);
+      ButterKnife.bind(this, custom);
 
-        builder.setMessage(getString(R.string.dialog_title));
-        builder.setPositiveButton(getString(R.string.dialog_add),
-           (dialog, id) -> addStock());
-        builder.setNegativeButton(getString(R.string.dialog_cancel), null);
+      stock.setOnEditorActionListener((v, actionId, event) -> {
+         addStock();
+         return true;
+      });
+      builder.setView(custom);
 
-        Dialog dialog = builder.create();
+      builder.setMessage(getString(R.string.dialog_title));
+      builder.setPositiveButton(getString(R.string.dialog_add),
+         (dialog, id) -> addStock());
+      builder.setNegativeButton(getString(R.string.dialog_cancel), null);
 
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
+      Dialog dialog = builder.create();
 
-        return dialog;
-    }
+      Window window = dialog.getWindow();
+      if (window != null) {
+         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+      }
 
-    private void addStock() {
-        Activity parent = getActivity();
-        if (parent instanceof StockListActivity) {
-            ((StockListActivity) parent).addStock(stock.getText().toString());
-        }
-        dismissAllowingStateLoss();
-    }
+      return dialog;
+   }
 
+   private void addStock() {
+      onStockDialogClick.onStockDialogClick(stock.getText().toString());
+      dismissAllowingStateLoss();
+   }
 
+   interface OnStockDialogClick {
+      void onStockDialogClick(String symbol);
+   }
 }

@@ -11,11 +11,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class StockListPresenterImpl extends BasePresenterImpl<StockListView> implements StockListPresenter {
-   private StockListInteractor interactor;
+public class StockPresenterImpl extends BasePresenterImpl<StockListView> implements StockPresenter {
+   private StockInteractor interactor;
 
    @Inject
-   public StockListPresenterImpl(StockListInteractor interactor) {
+   public StockPresenterImpl(StockInteractor interactor) {
       this.interactor = interactor;
    }
 
@@ -56,7 +56,7 @@ public class StockListPresenterImpl extends BasePresenterImpl<StockListView> imp
    }
 }
 
-interface StockListPresenter extends BasePresenter<StockListView> {
+interface StockPresenter extends BasePresenter<StockListView> {
 
    void deleteSymbolFromStock(String symbol);
 
