@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.udacity.stockhawk.R;
-import com.udacity.stockhawk.core.ui.fragment.DaggerCleanFragment;
+import com.udacity.stockhawk.core.ui.fragment.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +32,7 @@ import lecho.lib.hellocharts.view.LineChartView;
 import static com.udacity.stockhawk.ui.StockActivity.STOCK_EXTRA;
 import static com.udacity.stockhawk.ui.StockActivity.STOCK_HISTORY_EXTRA;
 
-public class StockDetailFragment extends DaggerCleanFragment<StockDetailPresenter, StockDetailView, StockComponent> implements StockDetailView {
+public class StockDetailFragment extends BaseFragment implements StockDetailView {
    String stockSymbol;
    String stockHistory;
    LineChartView chart;
@@ -132,12 +132,6 @@ public class StockDetailFragment extends DaggerCleanFragment<StockDetailPresente
          outState.putString(STOCK_EXTRA, stockSymbol);
    }
 
-   @Override protected StockComponent buildComponent() {
-      return DaggerStockComponent.builder().
-         appComponent(getApplicationComponent()).
-         stockDetailModule(new StockComponent.StockDetailModule()).
-         build();
-   }
 }
 
 interface StockDetailView {

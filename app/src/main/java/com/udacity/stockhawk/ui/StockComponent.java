@@ -8,15 +8,11 @@ import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by Durdin on 11/03/2017.
- */
 
 @ViewScope
 @Component(
    modules = {
       StockComponent.StockModule.class,
-      StockComponent.StockDetailModule.class,
       ActivityModule.class,
    },
    dependencies = AppComponent.class
@@ -43,19 +39,5 @@ public interface StockComponent {
 
    }
 
-   @Module
-   class StockDetailModule {
-      @ViewScope
-      @Provides
-      StockDetailPresenter providePresenter(StockDetailPresenterImpl impl) {
-         return impl;
-      }
 
-      @ViewScope
-      @Provides
-      StockDetailInteractor provideInteractor(StockDetailInteractorImpl impl) {
-         return impl;
-      }
-
-   }
 }

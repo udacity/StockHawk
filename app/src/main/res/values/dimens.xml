@@ -1,3 +1,4 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="default_padding">8dp</dimen>
 </resources>
