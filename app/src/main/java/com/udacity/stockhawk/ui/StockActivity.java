@@ -15,6 +15,7 @@ public class StockActivity extends BaseActivity implements StockView {
    public static final String STOCK_EXTRA = "stock_detail_extra";
    public static final String STOCK_HISTORY_EXTRA = "stock_history_detail_extra";
    private boolean tabletMode;
+   private StockFragment stockFragment;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +23,8 @@ public class StockActivity extends BaseActivity implements StockView {
       setContentView(R.layout.activity_main);
 
       tabletMode = findViewById(R.id.stock_details_container) != null;
-
-      setStockFragment(StockFragment.newInstance());
+      stockFragment = StockFragment.newInstance();
+      setStockFragment(stockFragment);
    }
 
    @Override
@@ -54,7 +55,7 @@ public class StockActivity extends BaseActivity implements StockView {
          .commit();
    }
 
-   private void setDisplayModeMenuItemIcon(MenuItem item) {
+   public void setDisplayModeMenuItemIcon(MenuItem item) {
       if (PrefUtils.getDisplayMode(this)
          .equals(getString(R.string.pref_display_mode_absolute_key))) {
          item.setIcon(R.drawable.ic_percentage);
@@ -69,6 +70,17 @@ public class StockActivity extends BaseActivity implements StockView {
       MenuItem item = menu.findItem(R.id.action_change_units);
       setDisplayModeMenuItemIcon(item);
       return true;
+   }
+
+   @Override public boolean onOptionsItemSelected(MenuItem item) {
+      int id = item.getItemId();
+      if (id == R.id.action_change_units) {
+         PrefUtils.toggleDisplayMode(this);
+         (this).setDisplayModeMenuItemIcon(item);
+         stockFragment.getAdapter().notifyDataSetChanged();
+         return true;
+      }
+      return super.onOptionsItemSelected(item);
    }
 
 }

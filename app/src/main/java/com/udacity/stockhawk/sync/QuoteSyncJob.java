@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.reactivex.processors.PublishProcessor;
 import timber.log.Timber;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
@@ -29,7 +30,7 @@ import yahoofinance.histquotes.Interval;
 import yahoofinance.quotes.stock.StockQuote;
 
 public final class QuoteSyncJob {
-
+   private final PublishProcessor<Boolean> quoteSuccesfullProcessor = PublishProcessor.create();
    private static final int ONE_OFF_ID = 2;
    private static final String ACTION_DATA_UPDATED = "com.udacity.stockhawk.ACTION_DATA_UPDATED";
    private static final int PERIOD = 300000;
@@ -73,8 +74,9 @@ public final class QuoteSyncJob {
 
 
             Stock stock = quotes.get(symbol);
-            StockQuote quote = stock.getQuote();
-            if (quote == null) {
+            StockQuote quote = stock == null ? null : stock.getQuote();
+            if (quote == null || quote.getPrice() == null || quote.getChange() == null) {
+               //TODO manage error
                return;
             }
             float price = quote.getPrice().floatValue();

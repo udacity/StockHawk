@@ -163,7 +163,12 @@ public class StockFragment extends DaggerCleanFragment<StockPresenter, StockList
    @Override public void onStockDialogClick(String symbol) {
       addStock(symbol);
    }
+
+   public StockAdapter getAdapter() {
+      return adapter;
+   }
 }
+
 
 interface StockListView {
 
