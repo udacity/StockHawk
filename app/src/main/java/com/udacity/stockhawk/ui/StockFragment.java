@@ -85,6 +85,13 @@ public class StockFragment extends DaggerCleanFragment<StockPresenter, StockList
       adapter.setCursor(null);
    }
 
+   @Override public void onDataLoadFailed(Context context) {
+      if (swipeRefreshLayout != null) {
+         swipeRefreshLayout.setRefreshing(false);
+         Toast.makeText(context, "There`s no data for the introduced symbol", Toast.LENGTH_SHORT).show();
+      }
+   }
+
    @Override public void onRefresh() {
 
       QuoteSyncJob.syncImmediately(getActivity());
@@ -167,6 +174,7 @@ public class StockFragment extends DaggerCleanFragment<StockPresenter, StockList
    public StockAdapter getAdapter() {
       return adapter;
    }
+
 }
 
 
@@ -176,4 +184,5 @@ interface StockListView {
 
    void resetStock();
 
+   void onDataLoadFailed(Context context);
 }

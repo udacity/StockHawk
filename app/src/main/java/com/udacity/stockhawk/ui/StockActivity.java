@@ -1,6 +1,9 @@
 package com.udacity.stockhawk.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,22 +12,31 @@ import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.core.ui.activity.BaseActivity;
 import com.udacity.stockhawk.utils.PrefUtils;
 
-public class StockActivity extends BaseActivity implements StockView {
+public class StockActivity extends BaseActivity implements StockView{
    public static final String STOCK_DETAILS_FRAGMENT_TAG = "fragment_stock_details";
    private static final String STOCK_FRAGMENT_TAG = "fragment_stock";
    public static final String STOCK_EXTRA = "stock_detail_extra";
    public static final String STOCK_HISTORY_EXTRA = "stock_history_detail_extra";
    private boolean tabletMode;
    private StockFragment stockFragment;
+   private StockDataReceiver dataBroadcastReceiver;
+
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-
       tabletMode = findViewById(R.id.stock_details_container) != null;
       stockFragment = StockFragment.newInstance();
+      initBroadcastReceiver();
       setStockFragment(stockFragment);
+   }
+
+   private void initBroadcastReceiver() {
+      dataBroadcastReceiver = new StockDataReceiver();
+      IntentFilter intentFilter = new IntentFilter();
+      intentFilter.addAction("com.udacity.stockhawk.ACTION_DATA_FAILED");
+      registerReceiver(dataBroadcastReceiver, intentFilter);
    }
 
    @Override
@@ -83,6 +95,27 @@ public class StockActivity extends BaseActivity implements StockView {
       return super.onOptionsItemSelected(item);
    }
 
+   @Override protected void onDestroy() {
+      super.onDestroy();
+      unregisterReceiver(dataBroadcastReceiver);
+   }
+
+   private void onStockDataError() {
+      if (stockFragment == null) return;
+      stockFragment.onDataLoadFailed(this);
+   }
+
+   public class StockDataReceiver extends BroadcastReceiver {
+
+      // Empty constructor
+      public StockDataReceiver() {
+         super();
+      }
+
+      @Override public void onReceive(Context context, Intent intent) {
+         onStockDataError();
+      }
+   }
 }
 
 interface StockView {

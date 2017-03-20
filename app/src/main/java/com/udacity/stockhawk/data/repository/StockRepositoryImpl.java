@@ -15,8 +15,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.SingleOnSubscribe;
 import io.reactivex.processors.PublishProcessor;
 
 
@@ -36,15 +34,13 @@ public class StockRepositoryImpl implements StockRepository, LoaderManager.Loade
    }
 
    @Override public Single<Cursor> getStockCursor() {
-      return Single.create(new SingleOnSubscribe<Cursor>() {
-         @Override public void subscribe(SingleEmitter<Cursor> e) throws Exception {
-            final Cursor stockCursor = contentResolver.query(Contract.Quote.URI, Contract.Quote.QUOTE_COLUMNS.toArray(new String[]{}),
-               null, null, Contract.Quote.COLUMN_SYMBOL);
-            if (stockCursor != null) {
-               e.onSuccess(stockCursor);
-            } else {
-               e.onError(new Throwable("No result for the given uri"));
-            }
+      return Single.create(e -> {
+         final Cursor stockCursor = contentResolver.query(Contract.Quote.URI, Contract.Quote.QUOTE_COLUMNS.toArray(new String[]{}),
+            null, null, Contract.Quote.COLUMN_SYMBOL);
+         if (stockCursor != null) {
+            e.onSuccess(stockCursor);
+         } else {
+            e.onError(new Throwable("No result for the given uri"));
          }
       });
    }
