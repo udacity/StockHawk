@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             PrefUtils.addStock(this, symbol);
             QuoteSyncJob.syncImmediately(this);
         }
+
     }
 
     @Override
