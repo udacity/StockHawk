@@ -9,17 +9,17 @@ import timber.log.Timber;
 @SuppressWarnings("javadoctype")
 public class QuoteIntentService extends IntentService {
 
-    public QuoteIntentService() {
-        super(QuoteIntentService.class.getSimpleName());
-    }
+   public QuoteIntentService() {
+      super(QuoteIntentService.class.getSimpleName());
+   }
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        Timber.d("Intent handled");
-        QuoteSyncJob.getQuotes(getApplicationContext());
-    }
+   @Override
+   protected void onHandleIntent(Intent intent) {
+      Timber.d("Intent handled");
+      QuoteSyncJob.getQuotes(getApplicationContext());
+   }
 
-    @Override public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
-        return super.onStartCommand(intent, flags, startId);
-    }
+   @Override public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+      return super.onStartCommand(intent, flags, startId);
+   }
 }

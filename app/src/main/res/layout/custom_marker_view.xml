@@ -11,7 +11,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:text=""
-        android:textSize="12sp"
+        android:textSize="@dimen/small_text_size"
         android:textColor="@android:color/white"
         android:ellipsize="end"
         android:singleLine="true"

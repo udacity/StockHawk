@@ -5,4 +5,9 @@
     <!--Widget-->
     <dimen name="widget_default_height">110dp</dimen>
     <dimen name="widget_default_width">110dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
+    <dimen name="small_medium_padding">8dp</dimen>
 </resources>
