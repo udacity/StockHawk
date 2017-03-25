@@ -41,6 +41,7 @@
         android:layout_margin="16dp"
         android:layout_width="wrap_content"
         android:src="@drawable/fab_plus"
+        android:contentDescription="@string/content_add_new_stock"
         app:backgroundTint="@color/material_blue_500"
         app:borderWidth="0dp"
         app:elevation="6dp"

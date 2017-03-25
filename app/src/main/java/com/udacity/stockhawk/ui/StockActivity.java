@@ -12,11 +12,14 @@ import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.core.ui.activity.BaseActivity;
 import com.udacity.stockhawk.utils.PrefUtils;
 
-public class StockActivity extends BaseActivity implements StockView{
-   public static final String STOCK_DETAILS_FRAGMENT_TAG = "fragment_stock_details";
-   private static final String STOCK_FRAGMENT_TAG = "fragment_stock";
+/**
+ * Application main activity.
+ */
+public class StockActivity extends BaseActivity implements StockView {
    public static final String STOCK_EXTRA = "stock_detail_extra";
+   public static final String STOCK_DETAILS_FRAGMENT_TAG = "fragment_stock_details";
    public static final String STOCK_HISTORY_EXTRA = "stock_history_detail_extra";
+   private static final String STOCK_FRAGMENT_TAG = "fragment_stock";
    private boolean tabletMode;
    private StockFragment stockFragment;
    private StockDataReceiver dataBroadcastReceiver;
@@ -67,6 +70,9 @@ public class StockActivity extends BaseActivity implements StockView{
          .commit();
    }
 
+   /**
+    * Display the right menu icon.
+    */
    public void setDisplayModeMenuItemIcon(MenuItem item) {
       if (PrefUtils.getDisplayMode(this)
          .equals(getString(R.string.pref_display_mode_absolute_key))) {
@@ -105,6 +111,9 @@ public class StockActivity extends BaseActivity implements StockView{
       stockFragment.onDataLoadFailed(this);
    }
 
+   /**
+    * Custom {@link BroadcastReceiver} to manage the Stock updates.
+    */
    public class StockDataReceiver extends BroadcastReceiver {
 
       // Empty constructor

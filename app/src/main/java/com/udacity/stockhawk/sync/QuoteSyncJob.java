@@ -28,10 +28,11 @@ import yahoofinance.histquotes.HistoricalQuote;
 import yahoofinance.histquotes.Interval;
 import yahoofinance.quotes.stock.StockQuote;
 
+@SuppressWarnings("javadoctype")
 public final class QuoteSyncJob {
-   private static final int ONE_OFF_ID = 2;
-   static final String ACTION_DATA_UPDATED = "com.udacity.stockhawk.ACTION_DATA_UPDATED";
    public static final String ACTION_DATA_FAILED = "com.udacity.stockhawk.ACTION_DATA_FAILED";
+   static final String ACTION_DATA_UPDATED = "com.udacity.stockhawk.ACTION_DATA_UPDATED";
+   private static final int ONE_OFF_ID = 2;
    private static final int PERIOD = 300000;
    private static final int INITIAL_BACKOFF = 10000;
    private static final int PERIODIC_ID = 1;
@@ -140,12 +141,13 @@ public final class QuoteSyncJob {
       scheduler.schedule(builder.build());
    }
 
-
+   @SuppressWarnings("javadocmethod")
    public static synchronized void initialize(final Context context) {
       schedulePeriodic(context);
       syncImmediately(context);
    }
 
+   @SuppressWarnings("javadocmethod")
    public static synchronized void syncImmediately(Context context) {
 
       ConnectivityManager cm =

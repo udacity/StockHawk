@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import timber.log.Timber;
 
-
+@SuppressWarnings("javadoctype")
 public class QuoteIntentService extends IntentService {
 
     public QuoteIntentService() {

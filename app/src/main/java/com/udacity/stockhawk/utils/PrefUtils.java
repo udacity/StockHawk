@@ -10,11 +10,15 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Utils class to work with preferences.
+ */
 public final class PrefUtils {
 
     private PrefUtils() {
     }
 
+    @SuppressWarnings("javadocmethod")
     public static Set<String> getStocks(Context context) {
         String stocksKey = context.getString(R.string.pref_stocks_key);
         String initializedKey = context.getString(R.string.pref_stocks_initialized_key);
@@ -53,14 +57,17 @@ public final class PrefUtils {
         editor.apply();
     }
 
+    @SuppressWarnings("javadocmethod")
     public static void addStock(Context context, String symbol) {
         editStockPref(context, symbol, true);
     }
 
+    @SuppressWarnings("javadocmethod")
     public static void removeStock(Context context, String symbol) {
         editStockPref(context, symbol, false);
     }
 
+    @SuppressWarnings("javadocmethod")
     public static String getDisplayMode(Context context) {
         String key = context.getString(R.string.pref_display_mode_key);
         String defaultValue = context.getString(R.string.pref_display_mode_default);
@@ -68,6 +75,7 @@ public final class PrefUtils {
         return prefs.getString(key, defaultValue);
     }
 
+    @SuppressWarnings("javadocmethod")
     public static void toggleDisplayMode(Context context) {
         String key = context.getString(R.string.pref_display_mode_key);
         String absoluteKey = context.getString(R.string.pref_display_mode_absolute_key);

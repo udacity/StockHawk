@@ -1,6 +1,5 @@
 package com.udacity.stockhawk.data.repository;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,35 +13,21 @@ import com.udacity.stockhawk.data.provider.Contract;
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
-import io.reactivex.Single;
 import io.reactivex.processors.PublishProcessor;
 
 
-
-
+/**
+ * {@link StockRepository} implementation.
+ */
 public class StockRepositoryImpl implements StockRepository, LoaderManager.LoaderCallbacks<Cursor> {
 
    private static final int STOCK_LOADER = 0;
    private final Context context;
-   private ContentResolver contentResolver;
    private final PublishProcessor<Cursor> resolverUpdatesProcessor = PublishProcessor.create();
    private final PublishProcessor<Boolean> resolverResetProcessor = PublishProcessor.create();
 
-   @Inject public StockRepositoryImpl(ContentResolver contentResolver, App app) {
-      this.contentResolver = contentResolver;
+   @Inject public StockRepositoryImpl(App app) {
       this.context = app.getApplicationContext();
-   }
-
-   @Override public Single<Cursor> getStockCursor() {
-      return Single.create(e -> {
-         final Cursor stockCursor = contentResolver.query(Contract.Quote.URI, Contract.Quote.QUOTE_COLUMNS.toArray(new String[]{}),
-            null, null, Contract.Quote.COLUMN_SYMBOL);
-         if (stockCursor != null) {
-            e.onSuccess(stockCursor);
-         } else {
-            e.onError(new Throwable("No result for the given uri"));
-         }
-      });
    }
 
    @Override public Completable deleteSymbolFromStock(String symbol) {

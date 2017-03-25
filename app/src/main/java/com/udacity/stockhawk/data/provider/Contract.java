@@ -6,6 +6,9 @@ import android.provider.BaseColumns;
 
 import com.google.common.collect.ImmutableList;
 
+/**
+ * Database contract.
+ */
 public final class Contract {
 
     static final String AUTHORITY = "com.udacity.stockhawk";
@@ -16,7 +19,7 @@ public final class Contract {
     private Contract() {
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("javadocType")
     public static final class Quote implements BaseColumns {
 
         public static final Uri URI = BASE_URI.buildUpon().appendPath(PATH_QUOTE).build();
@@ -41,6 +44,9 @@ public final class Contract {
         );
         static final String TABLE_NAME = "quotes";
 
+        /**
+         * Return an {@link Uri} for the given symbol.
+         */
         public static Uri makeUriForStock(String symbol) {
             return URI.buildUpon().appendPath(symbol).build();
         }

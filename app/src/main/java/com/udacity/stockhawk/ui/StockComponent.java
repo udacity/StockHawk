@@ -10,6 +10,7 @@ import dagger.Provides;
 
 
 @ViewScope
+@SuppressWarnings("javadoctype")
 @Component(
    modules = {
       StockComponent.StockModule.class,
@@ -17,13 +18,17 @@ import dagger.Provides;
    },
    dependencies = AppComponent.class
 )
+
 public interface StockComponent {
 
+   @SuppressWarnings("javadocmethod")
    void inject(StockFragment stockFragment);
 
+   @SuppressWarnings("javadocmethod")
    void inject(StockDetailFragment stockDetailFragment);
 
    @Module
+   @SuppressWarnings("javadoctype")
    class StockModule {
       @ViewScope
       @Provides

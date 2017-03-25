@@ -11,9 +11,8 @@ import static com.udacity.stockhawk.ui.StockActivity.STOCK_EXTRA;
 import static com.udacity.stockhawk.ui.StockActivity.STOCK_HISTORY_EXTRA;
 
 /**
- * Created by Durdin on 13/03/2017.
+ * Detailed activity for the selected Stock. It launch {@link StockDetailFragment}.
  */
-
 public class StockDetailActivity extends BaseActivity {
 
    @Override

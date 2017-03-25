@@ -27,8 +27,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class StockFragment extends DaggerCleanFragment<StockPresenter, StockListView, StockComponent> implements StockListView, SwipeRefreshLayout.OnRefreshListener,
+/**
+ * Main activity Fragment.
+ */
+public class StockFragment extends DaggerCleanFragment<StockPresenter, StockListView, StockComponent>
+   implements StockListView, SwipeRefreshLayout.OnRefreshListener,
    StockAdapter.StockAdapterOnClickHandler, AddStockDialog.OnStockDialogClick {
+
    @SuppressWarnings("WeakerAccess")
    @BindView(R.id.recycler_view)
    RecyclerView stockRecyclerView;
@@ -117,6 +122,7 @@ public class StockFragment extends DaggerCleanFragment<StockPresenter, StockList
    }
 
    @OnClick(R.id.fab)
+   @SuppressWarnings("javadocmethod")
    public void button(@SuppressWarnings("UnusedParameters") View view) {
       new AddStockDialog(this).show(getActivity().getFragmentManager(), "StockDialogFragment");
    }

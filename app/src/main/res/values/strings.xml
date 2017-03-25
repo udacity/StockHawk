@@ -5,7 +5,6 @@
 
     <string name="pref_stocks_key">stocks</string>
 
-
     <string name="pref_display_mode_key">displayMode</string>
     <string name="pref_display_mode_default" translatable="false">@string/pref_display_mode_percentage_key</string>
 
@@ -32,5 +31,11 @@
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
     <string name="no_stock_error">There is not stock for that symbol</string>
+
+    <!--Content description-->
+    <string name="content_add_new_stock">Add new stock</string>
+    <string name="content_description_char">Displayed chart for the selected stock</string>
+    <string name="widget_title">Actual Stock</string>
+    <string name="string_symbol">symbol</string>
 
 </resources>

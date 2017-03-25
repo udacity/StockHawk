@@ -10,12 +10,13 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-
+/**
+ * Stock presenter implementation.
+ */
 public class StockPresenterImpl extends BasePresenterImpl<StockListView> implements StockPresenter {
    private StockInteractor interactor;
 
-   @Inject
-   public StockPresenterImpl(StockInteractor interactor) {
+   @Inject StockPresenterImpl(StockInteractor interactor) {
       this.interactor = interactor;
    }
 

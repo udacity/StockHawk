@@ -16,7 +16,9 @@ import com.udacity.stockhawk.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * Dialog displayed to let the user add a new Stock in {@link StockActivity}.
+ */
 public class AddStockDialog extends DialogFragment {
 
    @SuppressWarnings("WeakerAccess")

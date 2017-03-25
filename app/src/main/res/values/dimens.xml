@@ -1,4 +1,8 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="default_padding">8dp</dimen>
+
+    <!--Widget-->
+    <dimen name="widget_default_height">110dp</dimen>
+    <dimen name="widget_default_width">110dp</dimen>
 </resources>

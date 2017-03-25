@@ -32,6 +32,9 @@ import lecho.lib.hellocharts.view.LineChartView;
 import static com.udacity.stockhawk.ui.StockActivity.STOCK_EXTRA;
 import static com.udacity.stockhawk.ui.StockActivity.STOCK_HISTORY_EXTRA;
 
+/**
+ * Fragment used to show the Stock detail.
+ */
 public class StockDetailFragment extends BaseFragment implements StockDetailView {
    String stockSymbol;
    String stockHistory;
@@ -42,6 +45,9 @@ public class StockDetailFragment extends BaseFragment implements StockDetailView
    public StockDetailFragment() {
    }
 
+   /**
+    * Static method to generate a {@link StockDetailFragment} new instance.
+    */
    public static StockDetailFragment newInstance(String symbol, String history) {
       StockDetailFragment stockDetailFragment = new StockDetailFragment();
 
@@ -63,9 +69,6 @@ public class StockDetailFragment extends BaseFragment implements StockDetailView
       chart.setInteractive(true);
       chart.setZoomEnabled(false);
       chart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
-
-
-//      barChart.setOnChartGestureListener(this);
       setData(stockHistory);
       chartFrame.addView(chart);
    }

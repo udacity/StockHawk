@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import timber.log.Timber;
 
+@SuppressWarnings("javadocType")
 public class QuoteJobService extends JobService {
 
 

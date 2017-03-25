@@ -9,19 +9,16 @@ import com.udacity.stockhawk.data.repository.StockRepository;
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
-import io.reactivex.Single;
 import io.reactivex.processors.PublishProcessor;
 
+/**
+ * Interactor used for Stock methods.
+ */
 public class StockInteractorImpl implements StockInteractor {
    private StockRepository repository;
 
-   @Inject
-   public StockInteractorImpl(StockRepository repository) {
+   @Inject StockInteractorImpl(StockRepository repository) {
       this.repository = repository;
-   }
-
-   @Override public Single<Cursor> loadStock() {
-      return repository.getStockCursor();
    }
 
    @Override public Completable deleteSymbolFromStock(String symbol) {
@@ -43,13 +40,11 @@ public class StockInteractorImpl implements StockInteractor {
 
 interface StockInteractor {
 
-   Single<Cursor> loadStock();
-
    Completable deleteSymbolFromStock(String symbol);
 
-   public PublishProcessor<Cursor> getContentResolverUpdateProcessor();
+   PublishProcessor<Cursor> getContentResolverUpdateProcessor();
 
-   public PublishProcessor<Boolean> getContentResolverResetProcessor();
+   PublishProcessor<Boolean> getContentResolverResetProcessor();
 
    void startLoader(LoaderManager supportLoaderManager);
 }
