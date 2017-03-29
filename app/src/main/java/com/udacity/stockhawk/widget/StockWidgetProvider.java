@@ -40,6 +40,7 @@ public class StockWidgetProvider extends AppWidgetProvider {
          views.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
          //Update widget
          appWidgetManager.updateAppWidget(appWidgetId, views);
+         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
       }
    }
 }

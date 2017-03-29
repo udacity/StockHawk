@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
     android:orientation="vertical">
 
     <EditText
+        android:hint="@string/dialog_hint"
         android:id="@+id/dialog_stock"
-        android:layout_width="match_parent"
+        android:inputType="textCapCharacters"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin"
         android:layout_marginLeft="@dimen/small_margin"
         android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginStart="@dimen/small_margin"
         android:layout_marginTop="@dimen/default_margin"
-        android:hint="@string/dialog_hint"
-        android:inputType="textCapCharacters" />
+        android:layout_width="match_parent" />
 
 </LinearLayout>

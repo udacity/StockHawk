@@ -1,6 +1,9 @@
 package com.udacity.stockhawk.ui;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,6 +23,7 @@ import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.core.ui.fragment.DaggerCleanFragment;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
 import com.udacity.stockhawk.utils.PrefUtils;
+import com.udacity.stockhawk.widget.StockWidgetProvider;
 
 import javax.inject.Inject;
 
@@ -95,6 +99,17 @@ public class StockFragment extends DaggerCleanFragment<StockPresenter, StockList
          swipeRefreshLayout.setRefreshing(false);
          Toast.makeText(context, "There`s no data for the introduced symbol", Toast.LENGTH_SHORT).show();
       }
+   }
+
+   @Override public void updateWidget() {
+      Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+      //Get the id by the component name
+      ComponentName name = new ComponentName((getContext()), StockWidgetProvider.class);
+      int [] ids = AppWidgetManager.getInstance(getContext()).getAppWidgetIds(name);
+
+      intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+      getContext().sendBroadcast(intent);
    }
 
    @Override public void onRefresh() {
@@ -191,4 +206,6 @@ interface StockListView {
    void resetStock();
 
    void onDataLoadFailed(Context context);
+
+   void updateWidget();
 }

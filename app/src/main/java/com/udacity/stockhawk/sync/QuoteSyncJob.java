@@ -2,6 +2,7 @@ package com.udacity.stockhawk.sync;
 
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.net.NetworkInfo;
 
 import com.udacity.stockhawk.data.provider.Contract;
 import com.udacity.stockhawk.utils.PrefUtils;
+import com.udacity.stockhawk.widget.StockWidgetProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -124,6 +126,17 @@ public final class QuoteSyncJob {
       }
    }
 
+   private static void manualWidgetUpdate(Context context){
+      Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+      //Get the id by the component name
+      ComponentName name = new ComponentName((context), StockWidgetProvider.class);
+      int [] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(name);
+
+      intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+      context.sendBroadcast(intent);
+   }
+
    private static void schedulePeriodic(Context context) {
       Timber.d("Scheduling a periodic task");
 
@@ -169,6 +182,7 @@ public final class QuoteSyncJob {
 
          scheduler.schedule(builder.build());
       }
+      manualWidgetUpdate(context);
    }
 
 
