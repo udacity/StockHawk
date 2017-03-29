@@ -1,4 +1,16 @@
+buildscript {
+    ext {
+        use_jack = false
+        rx_version = "2.0.3"
+        rx_android_version = "2.0.1"
+        butterkinfe_version = "8.4.0"
+        support_version = "25.0.0"
+        dagger_version = "2.8"
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.noveogroup.android.check'
 
@@ -34,6 +46,11 @@ android {
         }
     }
 
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
     //noinspection GroovyMissingReturnStatement
     lintOptions {
         warning 'InvalidPackage'
@@ -52,14 +69,26 @@ check {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    //Support
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:design:$support_version"
+    compile "com.android.support:recyclerview-v7:$support_version"
+
+    //Dagger
+    compile "com.google.dagger:dagger:$dagger_version"
+    apt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    //Util
+    compile "com.jakewharton:butterknife:$butterkinfe_version"
+    compile "com.jakewharton:butterknife-compiler:$butterkinfe_version"
+
+    //Rx
+    compile "io.reactivex.rxjava2:rxjava:$rx_version"
+    compile "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+
     compile 'com.google.guava:guava:20.0'
     compile 'com.yahoofinance-api:YahooFinanceAPI:3.5.0'
     compile 'com.jakewharton.timber:timber:4.4.0'
     compile 'net.sf.opencsv:opencsv:2.3'
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    compile 'com.github.lecho:hellocharts-android:v1.5.8'
 }

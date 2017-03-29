@@ -6,21 +6,22 @@ import android.content.Intent;
 
 import timber.log.Timber;
 
+@SuppressWarnings("javadocType")
 public class QuoteJobService extends JobService {
 
 
-    @Override
-    public boolean onStartJob(JobParameters jobParameters) {
-        Timber.d("Intent handled");
-        Intent nowIntent = new Intent(getApplicationContext(), QuoteIntentService.class);
-        getApplicationContext().startService(nowIntent);
-        return true;
-    }
+   @Override
+   public boolean onStartJob(JobParameters jobParameters) {
+      Timber.d("Intent handled");
+      Intent nowIntent = new Intent(getApplicationContext(), QuoteIntentService.class);
+      getApplicationContext().startService(nowIntent);
+      return true;
+   }
 
-    @Override
-    public boolean onStopJob(JobParameters jobParameters) {
-        return false;
-    }
+   @Override
+   public boolean onStopJob(JobParameters jobParameters) {
+      return false;
+   }
 
 
 }
