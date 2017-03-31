@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+    <TextView
+        android:id="@+id/stockTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="StockHawk"
+        android:text="@string/app_name"
+        style="@style/StockHawkWidget" />
+    <ListView
+        android:id="@+id/stocklist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/widget_margin"
+        android:layout_marginStart="@dimen/widget_margin"
+        android:layout_marginLeft="@dimen/widget_margin"
+        android:layout_marginEnd="@dimen/widget_margin"
+        android:layout_marginRight="@dimen/widget_margin"
+        android:layout_below="@+id/stockTitle"/>
+    <TextView
+        android:id="@+id/emptyMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:text="@string/widget_no_stocks"
+        android:visibility="gone"
+        tools:text="Empty list" />
+</RelativeLayout>

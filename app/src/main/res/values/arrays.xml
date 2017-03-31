@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="default_stocks">
+        <item>@string/default_stocks_apple</item>
+        <item>@string/default_stocks_yahoo</item>
+        <item>@string/default_stocks_microsoft</item>
+        <item>@string/default_stocks_facebook</item>
+    </string-array>
+</resources>

@@ -1,38 +1,66 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
-
-android {
-  compileSdkVersion 23
-  buildToolsVersion "23.0.1"
-
-  defaultConfig {
-    applicationId "com.example.sam_chordas.stockhawk"
-    minSdkVersion 15
-    targetSdkVersion 23
-    versionCode 1
-    versionName "1.0"
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    }
-  }
-}
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.noveogroup.android.check'
 
 repositories {
-  maven { url "https://jitpack.io" }
+    maven { url "https://jitpack.io" }
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.udacity.stockhawk"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFile "proguard-butterknife-7.pro"
+            proguardFile "proguard-google-play-services.pro"
+            proguardFile "proguard-guava.pro"
+            proguardFile "proguard-square-okhttp3.pro"
+            proguardFile "proguard-square-okio.pro"
+            proguardFile "proguard-support-v7-appcompat.pro"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //noinspection GroovyMissingReturnStatement
+    lintOptions {
+        warning 'InvalidPackage'
+    }
+}
+
+check {
+    checkstyle { config hard() }
+    findbugs { config hard() }
+    pmd {
+        config hard()
+        skip true
+    }
 }
 
 dependencies {
-
-  compile 'com.google.android.gms:play-services-gcm:8.4.0'
-  compile 'com.squareup.okhttp:okhttp:2.5.0'
-  apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
-  compile 'net.simonvt.schematic:schematic:0.6.3'
-  compile 'com.melnykov:floatingactionbutton:1.2.0'
-  compile 'com.android.support:design:23.1.1'
-  compile('com.github.afollestad.material-dialogs:core:0.8.5.7@aar') {
-    transitive = true
-  }
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
+    compile 'com.android.support:design:25.3.0'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.google.guava:guava:20.0'
+    compile 'com.yahoofinance-api:YahooFinanceAPI:3.5.0'
+    compile 'com.jakewharton.timber:timber:4.4.0'
+    compile 'net.sf.opencsv:opencsv:2.3'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    compile 'com.android.support:support-v4:25.3.0'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
