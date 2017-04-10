@@ -32,4 +32,13 @@
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
 
+    <!-- Message for invalid stock -->
+    <string name="invalid_stock">Invalid stock:</string>
+
+    <!-- Activity with stock graph -->
+    <string name="stock_graph">Stock graph</string>
+
+    <!-- Strings for the widget -->
+    <string name="stock_details">Stock Details</string>
+
 </resources>

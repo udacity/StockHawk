@@ -1,6 +1,7 @@
 package com.udacity.stockhawk.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -43,10 +44,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.error)
     TextView error;
     private StockAdapter adapter;
+    public static final String STOCK_KEY = "stock";
 
     @Override
     public void onClick(String symbol) {
         Timber.d("Symbol clicked: %s", symbol);
+        String stringUri = Contract.Quote.makeUriForStock(symbol).toString();
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(STOCK_KEY, stringUri);
+        startActivity(intent);
     }
 
     @Override
@@ -80,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
             }
         }).attachToRecyclerView(stockRecyclerView);
+
+
+
 
 
     }
@@ -129,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             PrefUtils.addStock(this, symbol);
             QuoteSyncJob.syncImmediately(this);
         }
+
     }
 
     @Override

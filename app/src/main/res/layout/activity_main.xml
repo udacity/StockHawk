@@ -43,4 +43,16 @@
         android:textAppearance="@android:style/TextAppearance.Medium"
         android:visibility="gone"
         tools:text="Error message" />
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:visibility="gone"
+        android:text="No stocks added. Click '+' to add" />
+
+
+
 </merge>
