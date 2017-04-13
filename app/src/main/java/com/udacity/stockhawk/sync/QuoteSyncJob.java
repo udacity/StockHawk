@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.os.ResultReceiver;
 
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
@@ -40,7 +42,7 @@ public final class QuoteSyncJob {
     private QuoteSyncJob() {
     }
 
-    static void getQuotes(Context context) {
+    static void getQuotes(ResultReceiver resultReceiver, Context context) {
 
         Timber.d("Running sync job");
 
@@ -71,6 +73,9 @@ public final class QuoteSyncJob {
 
                 if(stock.getCurrency() == null ){
                     PrefUtils.removeStock(context, stock.getSymbol());
+                    Bundle bundle = new Bundle();
+                    resultReceiver.send( QuoteSyncResultReceiver.NOT_EXISTING_SYMBOL_CODE,
+                            bundle);
                     continue;
                 }
 
@@ -138,20 +143,20 @@ public final class QuoteSyncJob {
     }
 
 
-    public static synchronized void initialize(final Context context) {
-
+    public static synchronized void initialize(QuoteSyncResultReceiver receiver, final Context context) {
         schedulePeriodic(context);
-        syncImmediately(context);
-
+        syncImmediately(receiver, context);
     }
 
-    public static synchronized void syncImmediately(Context context) {
+    public static synchronized void syncImmediately(QuoteSyncResultReceiver receiver, Context context) {
 
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
             Intent nowIntent = new Intent(context, QuoteIntentService.class);
+            nowIntent.putExtra(
+                    QuoteSyncResultReceiver.RECEIVER_TAG, receiver);
             context.startService(nowIntent);
         } else {
 

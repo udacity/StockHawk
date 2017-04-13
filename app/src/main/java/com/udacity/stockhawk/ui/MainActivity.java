@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -23,6 +24,7 @@ import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
+import com.udacity.stockhawk.sync.QuoteSyncResultReceiver;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     TextView error;
     private StockAdapter adapter;
 
+    public QuoteSyncResultReceiver mReceiver;
+
     @Override
     public void onClick(String symbol) {
         Timber.d("Symbol clicked: %s", symbol);
@@ -62,9 +66,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
+
+        mReceiver = new QuoteSyncResultReceiver(new Handler());
+        mReceiver.setReceiver(
+                new QuoteSyncResultReceiver.Receiver() {
+                    @Override
+                    public void onReceiveResult(int resultCode, Bundle resultData) {
+                        Toast.makeText(MainActivity.this,getString(
+                                R.string.invalid_symbol),Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
         onRefresh();
 
-        QuoteSyncJob.initialize(this);
+        QuoteSyncJob.initialize(mReceiver, this);
         getSupportLoaderManager().initLoader(STOCK_LOADER, null, this);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -94,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onRefresh() {
 
-        QuoteSyncJob.syncImmediately(this);
+        QuoteSyncJob.syncImmediately(mReceiver, this);
 
         if (!networkUp() && adapter.getItemCount() == 0) {
             swipeRefreshLayout.setRefreshing(false);
@@ -127,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
 
             PrefUtils.addStock(this, symbol);
-            QuoteSyncJob.syncImmediately(this);
+            QuoteSyncJob.syncImmediately(mReceiver, this);
         }
     }
 
