@@ -57,10 +57,6 @@ public final class QuoteSyncJob {
 
             Timber.d(stockCopy.toString());
 
-            if (stockArray.length == 0) {
-                return;
-            }
-
             Map<String, Stock> quotes = YahooFinance.get(stockArray);
             Iterator<String> iterator = stockCopy.iterator();
 
@@ -71,9 +67,15 @@ public final class QuoteSyncJob {
             while (iterator.hasNext()) {
                 String symbol = iterator.next();
 
-
                 Stock stock = quotes.get(symbol);
+
+                if(stock.getCurrency() == null ){
+                    PrefUtils.removeStock(context, stock.getSymbol());
+                    continue;
+                }
+
                 StockQuote quote = stock.getQuote();
+
 
                 float price = quote.getPrice().floatValue();
                 float change = quote.getChange().floatValue();
@@ -164,9 +166,7 @@ public final class QuoteSyncJob {
 
             scheduler.schedule(builder.build());
 
-
         }
     }
-
 
 }
