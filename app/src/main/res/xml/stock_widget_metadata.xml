@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider
+    android:initialLayout="@layout/stocks_widget"
+    android:minHeight="80dp"
+    android:minWidth="200dp"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="3600000"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>
