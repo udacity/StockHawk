@@ -8,5 +8,4 @@
         android:orderInCategory="99"
         android:title="@string/action_change_units"
         app:showAsAction="always" />
-
 </menu>
