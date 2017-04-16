@@ -2,8 +2,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
 
     <dimen name="text_large">32sp</dimen>
-    <dimen name="text_medium">28sp</dimen>
-
-
-
+    <dimen name="text_medium">24sp</dimen>
 </resources>
