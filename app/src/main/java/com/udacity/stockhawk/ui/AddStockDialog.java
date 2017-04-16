@@ -7,11 +7,15 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -44,6 +48,24 @@ public class AddStockDialog extends DialogFragment {
                 return true;
             }
         });
+
+        stock.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enablePositiveButton(s, getDialog());
+            }
+        });
+
         builder.setView(custom);
 
         builder.setMessage(getString(R.string.dialog_title));
@@ -62,13 +84,28 @@ public class AddStockDialog extends DialogFragment {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         }
 
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                enablePositiveButton(stock.getText(), dialog);
+            }
+        });
+
         return dialog;
+    }
+
+    private void enablePositiveButton(Editable text, DialogInterface dialog) {
+        if (dialog instanceof AlertDialog) {
+            AlertDialog alertDialog = (AlertDialog) dialog;
+            Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setEnabled(!TextUtils.isEmpty(text));
+        }
     }
 
     private void addStock() {
         Activity parent = getActivity();
         if (parent instanceof MainActivity) {
-            ((MainActivity) parent).addStock(stock.getText().toString());
+            ((MainActivity) parent).addStock(stock.getText().toString().toUpperCase());
         }
         dismissAllowingStateLoss();
     }

@@ -1,23 +1,23 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="toolbarStyle">@style/Toolbar</item>
     </style>
 
-    <style name="PercentChangeTextStyle">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#FFF</item>
+    <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="popupTheme">@style/Theme.AppCompat.Light</item>
+    </style>
+
+    <style name="BidPriceTextStyle" parent="Base.TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="PercentChangeTextStyle" parent="Base.TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="BidPriceTextStyle">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="StockSymbolTextStyle">
-        <item name="android:textSize">25sp</item>
-        <item name="android:textAllCaps">true</item>
     </style>
 </resources>

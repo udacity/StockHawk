@@ -1,3 +1,6 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="actionbar_elevation">4dp</dimen>
+    <dimen name="stock_dialog_margin">4dp</dimen>
+    <dimen name="stock_dialog_margin_top">16dp</dimen>
 </resources>

@@ -1,35 +1,51 @@
 <resources>
     <string name="app_name">Stock Hawk</string>
 
+    <!-- KEYS -->
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
+    <string name="pref_stocks_key" translatable="false">stocks</string>
+    <string name="pref_invalid_stock_key" translatable="false">invalid_stock</string>
+    <string name="pref_display_mode_key" translatable="false">displayMode</string>
+    <string name="pref_display_mode_default" translatable="false">@string/pref_display_mode_percentage_key</string>
+    <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
+    <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
+    <string name="pref_stock_status_key" translatable="false">STOCK_STATUS</string>
+    <string name="stock_dialog_fragment_name" translatable="false">StockDialogFragment</string>
 
-    <string name="pref_stocks_key">stocks</string>
-
-
-    <string name="pref_display_mode_key">displayMode</string>
-    <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
-
-    <string name="pref_display_mode_absolute_key">absolute</string>
-    <string name="pref_display_mode_percentage_key">percentage</string>
-
+    <!-- DEFAULT STOCKS -->
     <string name="default_stocks_yahoo">YHOO</string>
     <string name="default_stocks_apple">AAPL</string>
     <string name="default_stocks_microsoft">MSFT</string>
     <string name="default_stocks_facebook">FB</string>
 
-
     <string name="action_change_units">@string/pref_display_mode_key</string>
 
-
+    <!-- DIALOG -->
     <string name="dialog_title">Add Stock</string>
     <string name="dialog_hint">Symbol (e.g. GOOG)</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_add">Add</string>
 
+    <!-- ERRORS -->
     <string name="error_no_network">No network connectivity! Will load stock cursor when the network is available.</string>
     <string name="error_no_stocks">No stocks added! Hit the floating action button to add one.</string>
-
-    <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
+    <string name="empty_stock_list">Stock information is not available.</string>
+    <string name="error_server_down">No stock information available. The server is not returning data.</string>
+    <string name="error_server_down_stock">%1$s exists but the server is not returning complete data.</string>
+    <string name="toast_stock_added_no_connectivity">Symbol %1Ss added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
+    <string name="error_stock_invalid">Symbol %1$s does not exist!</string>"
+    <string name="loading_data">Loading data. Please wait…</string>
+    <string name="stock_already_included">Stock %1$s already included.</string>
+
+    <!-- Content descriptions -->
+    <string name="add_new_stock_cd">Add new Stock</string>
+    <string name="toogle_display_mode_cd">Toggle values between absolute and percentage values</string>
+    <string name="toogle_display_mode_notice_cd">Values are shown as %s</string>
+    <string name="stock_increased_cd">Stock value increased by %s</string>
+    <string name="stock_decreased_cd">Stock value decreased by %s</string>
+    <string name="stock_no_change_cd">Stock value without change</string>
+    <string name="try_again">Try again</string>
+    <string name="stock_price_cd">Stock price %1$s</string>
 
 </resources>
