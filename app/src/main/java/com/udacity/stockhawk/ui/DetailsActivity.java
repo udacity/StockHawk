@@ -58,6 +58,11 @@ public class DetailsActivity extends AppCompatActivity
     @BindView(R.id.textViewStockMargin)
     TextView textViewStockMargin;
 
+    @SuppressWarnings("WeakerAccess")
+    @BindView(R.id.no_history_data)
+    TextView textNoData;
+
+
     @BindView(android.R.id.tabhost)
     TabHost mTabHost;
 
@@ -255,13 +260,19 @@ public class DetailsActivity extends AppCompatActivity
                 mChart.setInteractive(false);
                 mChart.setLineChartData(lineChartData);
                 mChart.setVisibility(View.VISIBLE);
+                mTabContent.setVisibility(View.VISIBLE);
+
+            }else{
+                mTabHost.setVisibility(View.INVISIBLE);
+                textNoData.setVisibility(View.VISIBLE);
             }
 
         }catch (Exception e ){
             Timber.e("Illegal format data!");
+            mTabHost.setVisibility(View.INVISIBLE);
+            textNoData.setVisibility(View.VISIBLE);
         }
 
-        mTabContent.setVisibility(View.VISIBLE);
     }
 
     @Override

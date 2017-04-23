@@ -19,7 +19,7 @@
             android:gravity="start|center_vertical" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/stock_widget_layout_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end">
@@ -30,20 +30,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:paddingEnd="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingStart="8dp" />
+                android:paddingEnd="@dimen/stock_widget_price_padding"
+                android:paddingLeft="@dimen/stock_widget_price_padding"
+                android:paddingRight="@dimen/stock_widget_price_padding"
+                android:paddingStart="@dimen/stock_widget_price_padding" />
             <TextView
                 tools:text="5.4"
                 android:id="@+id/widget_stock_absolute_change"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="4dp"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingTop="4dp" />
+                android:paddingBottom="@dimen/stock_widget_margin_padding"
+                android:paddingLeft="@dimen/stock_widget_margin_padding"
+                android:paddingRight="@dimen/stock_widget_margin_padding"
+                android:paddingTop="@dimen/stock_widget_margin_padding" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

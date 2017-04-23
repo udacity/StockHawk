@@ -10,8 +10,8 @@
     <RelativeLayout
         android:background="@color/material_blue_500"
         android:orientation="vertical"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="@dimen/details_layout_padding_top"
+        android:paddingBottom="@dimen/details_layout_padding_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,7 +19,7 @@
             android:id="@+id/textViewStockPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/details_stock_price_margin_start"
             android:textStyle="bold"
             android:textSize="@dimen/text_large"
             android:textColor="@color/white"
@@ -30,19 +30,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/percent_change_pill_green"
-            android:paddingStart="3dp"
-            android:paddingEnd="3dp"
+            android:paddingStart="@dimen/details_stock_margin_padding_start"
+            android:paddingEnd="@dimen/details_stock_margin_padding_end"
             android:textColor="@color/white"
             android:textSize="@dimen/text_medium"
             android:layout_toEndOf="@id/textViewStockPrice"
-            android:layout_marginTop="6sp"
+            android:layout_marginTop="@dimen/details_stock_margin_layout_margin_top"
             tools:text="+6%"
-            android:layout_marginStart="10dp" />
+            android:layout_marginStart="@dimen/details_stock_margin_layout_margin_start" />
     </RelativeLayout>
+
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+            <TextView
+                android:visibility="invisible"
+                android:text="@string/no_history_data"
+                android:id="@+id/no_history_data"
+                android:textSize="@dimen/text_medium"
+                android:layout_marginTop="@dimen/no_history_data_margin_top"
+                android:layout_marginStart="@dimen/no_history_data_margin_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <TabHost
                 android:id="@android:id/tabhost"
                 android:layout_width="match_parent"
@@ -65,7 +75,7 @@
                             android:id="@+id/stock_chart"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:padding="16dp"
+                            android:padding="@dimen/chart_padding"
                             android:visibility="invisible" />
                     </FrameLayout>
                 </LinearLayout>

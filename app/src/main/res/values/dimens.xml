@@ -3,4 +3,43 @@
 
     <dimen name="text_large">32sp</dimen>
     <dimen name="text_medium">24sp</dimen>
+
+    <dimen name="stock_margin_layout_margin">16sp</dimen>
+    <dimen name="stock_margin_border_width">0dp</dimen>
+    <dimen name="stock_margin_elevation">0dp</dimen>
+    <dimen name="stock_margin_pressed_translation_Z">12dp</dimen>
+
+    <dimen name="dialog_stock_margin_bottom">4dp</dimen>
+    <dimen name="dialog_stock_margin_left">4dp</dimen>
+    <dimen name="dialog_stock_margin_right">4dp</dimen>
+    <dimen name="dialog_stock_margin_top">16dp</dimen>
+
+    <dimen name="details_layout_padding_top">20dp</dimen>
+    <dimen name="details_layout_padding_bottom">20dp</dimen>
+
+    <dimen name="details_stock_price_margin_start">20dp</dimen>
+    <dimen name="details_stock_margin_padding_start">3dp</dimen>
+    <dimen name="details_stock_margin_padding_end">3dp</dimen>
+    <dimen name="details_stock_margin_layout_margin_top">6sp</dimen>
+    <dimen name="details_stock_margin_layout_margin_start">10dp</dimen>
+
+    <dimen name="no_history_data_margin_top">20dp</dimen>
+    <dimen name="no_history_data_margin_start">20dp</dimen>
+
+    <dimen name="chart_padding">16dp</dimen>
+
+    <dimen name="item_stock_padding_start">16dp</dimen>
+    <dimen name="item_stock_padding_end">16dp</dimen>
+
+    <dimen name="item_stock_layout_width">0dp</dimen>
+    <dimen name="item_stock_price_margin_end">10dp</dimen>
+
+    <dimen name="item_stock_margin_padding_start">3dp</dimen>
+    <dimen name="item_stock_margin_padding_end">3dp</dimen>
+
+    <dimen name="stock_widget_layout_width">0dp</dimen>
+
+    <dimen name="stock_widget_price_padding">8dp</dimen>
+    <dimen name="stock_widget_margin_padding">4dp</dimen>
+
 </resources>

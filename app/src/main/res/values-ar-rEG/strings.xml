@@ -17,4 +17,5 @@
 
     <string name="toast_stock_added_no_connectivity">تمت إضافة الرمز. سيتم تحديث عندما الشبكة المتاحة.</string>
     <string name="toast_no_connectivity">سيتم تحديث عندما الشبكة المتاحة.</string>
+    <string name="no_history_data">أي البيانات التاريخية أفايالبل</string>
 </resources>
