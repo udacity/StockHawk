@@ -35,6 +35,7 @@
             style="@style/PercentChangeTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textDirection="inherit"
             android:background="@drawable/percent_change_pill_green"
             android:paddingStart="@dimen/item_stock_margin_padding_start"
             android:paddingEnd="@dimen/item_stock_margin_padding_end"

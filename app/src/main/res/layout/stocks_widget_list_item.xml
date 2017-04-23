@@ -31,8 +31,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:paddingEnd="@dimen/stock_widget_price_padding"
-                android:paddingLeft="@dimen/stock_widget_price_padding"
-                android:paddingRight="@dimen/stock_widget_price_padding"
                 android:paddingStart="@dimen/stock_widget_price_padding" />
             <TextView
                 tools:text="5.4"
@@ -41,8 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/stock_widget_margin_padding"
-                android:paddingLeft="@dimen/stock_widget_margin_padding"
-                android:paddingRight="@dimen/stock_widget_margin_padding"
+                android:paddingStart="@dimen/stock_widget_margin_padding"
+                android:paddingEnd="@dimen/stock_widget_margin_padding"
                 android:paddingTop="@dimen/stock_widget_margin_padding" />
         </LinearLayout>
     </LinearLayout>

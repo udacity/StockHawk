@@ -33,4 +33,5 @@ public class StockHawkWidgetProvider extends AppWidgetProvider {
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.stocks_list);
         }
     }
+
 }
