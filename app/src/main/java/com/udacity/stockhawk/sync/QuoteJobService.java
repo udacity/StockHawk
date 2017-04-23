@@ -8,7 +8,6 @@ import timber.log.Timber;
 
 public class QuoteJobService extends JobService {
 
-
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
         Timber.d("Intent handled");

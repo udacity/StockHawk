@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="details">تفاصيل</string>
+    <string name="invalid_symbol">أوبس، رمز السهم غير موجود!</string>
+
+    <string name="stock_detail_tab_6_months">6الشهور</string>
+    <string name="stock_detail_tab_1_year">1عام</string>
+    <string name="stock_detail_tab_2_years">2عام</string>
+
+    <string name="dialog_title">إضافة الأسهم</string>
+    <string name="dialog_hint">رمز فمثلا AMZN</string>
+    <string name="dialog_cancel">إلغاء</string>
+    <string name="dialog_add">إضافة</string>
+
+    <string name="error_no_network">لا اتصال الشبكة! سيتم تحميل مؤشر الأسهم عندما تكون الشبكة متاحة.</string>
+    <string name="error_no_stocks">لم يتم إضافة أي أسهم! ضرب زر العمل العائمة لإضافة واحد.</string>
+
+    <string name="toast_stock_added_no_connectivity">تمت إضافة الرمز. سيتم تحديث عندما الشبكة المتاحة.</string>
+    <string name="toast_no_connectivity">سيتم تحديث عندما الشبكة المتاحة.</string>
+    <string name="no_history_data">أي البيانات التاريخية أفايالبل</string>
+</resources>
