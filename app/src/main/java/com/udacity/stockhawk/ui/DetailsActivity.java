@@ -165,18 +165,18 @@ public class DetailsActivity extends AppCompatActivity
         mTabHost.setup();
 
         TabHost.TabSpec tabSpec;
-        tabSpec = mTabHost.newTabSpec(getString(R.string.stock_detail_tab_5_days));
-        tabSpec.setIndicator(getString(R.string.stock_detail_tab_5_days));
+        tabSpec = mTabHost.newTabSpec(getString(R.string.stock_detail_tab_6_months));
+        tabSpec.setIndicator(getString(R.string.stock_detail_tab_6_months));
         tabSpec.setContent(android.R.id.tabcontent);
         mTabHost.addTab(tabSpec);
 
-        tabSpec = mTabHost.newTabSpec(getString(R.string.stock_detail_tab_2_weeks));
-        tabSpec.setIndicator(getString(R.string.stock_detail_tab_2_weeks));
+        tabSpec = mTabHost.newTabSpec(getString(R.string.stock_detail_tab_1_year));
+        tabSpec.setIndicator(getString(R.string.stock_detail_tab_1_year));
         tabSpec.setContent(android.R.id.tabcontent);
         mTabHost.addTab(tabSpec);
 
-        tabSpec = mTabHost.newTabSpec(getString(R.string.stock_detail_tab_1_month));
-        tabSpec.setIndicator(getString(R.string.stock_detail_tab_1_month));
+        tabSpec = mTabHost.newTabSpec(getString(R.string.stock_detail_tab_2_years));
+        tabSpec.setIndicator(getString(R.string.stock_detail_tab_2_years));
         tabSpec.setContent(android.R.id.tabcontent);
         mTabHost.addTab(tabSpec);
 
@@ -277,9 +277,9 @@ public class DetailsActivity extends AppCompatActivity
 
     @Override
     public void onTabChanged(String tabId) {
-        if(tabId.equals(getString(R.string.stock_detail_tab_2_weeks))) limit = 14;
-        else if(tabId.equals(getString(R.string.stock_detail_tab_5_days))) limit = 5;
-        else if(tabId.equals(getString(R.string.stock_detail_tab_1_month))) limit = 30;
+        if(tabId.equals(getString(R.string.stock_detail_tab_6_months))) limit = 24;
+        else if(tabId.equals(getString(R.string.stock_detail_tab_1_year))) limit = 52;
+        else if(tabId.equals(getString(R.string.stock_detail_tab_2_years))) limit = 104;
         getSupportLoaderManager().restartLoader(ID_DETAIL_LOADER, null, this);
     }
 }

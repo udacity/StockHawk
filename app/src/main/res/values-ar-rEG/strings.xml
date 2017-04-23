@@ -3,9 +3,9 @@
     <string name="details">تفاصيل</string>
     <string name="invalid_symbol">أوبس، رمز السهم غير موجود!</string>
 
-    <string name="stock_detail_tab_5_days">5أيام</string>
-    <string name="stock_detail_tab_2_weeks">2أسابيع</string>
-    <string name="stock_detail_tab_1_month">1شهر</string>
+    <string name="stock_detail_tab_6_months">6الشهور</string>
+    <string name="stock_detail_tab_1_year">1عام</string>
+    <string name="stock_detail_tab_2_years">2عام</string>
 
     <string name="dialog_title">إضافة الأسهم</string>
     <string name="dialog_hint">رمز فمثلا AMZN</string>

@@ -8,9 +8,9 @@
     <string name="invalid_symbol">Ops, Stock symbol not existing!</string>
     <string name="details">Details</string>
 
-    <string name="stock_detail_tab_5_days">5DAYS</string>
-    <string name="stock_detail_tab_2_weeks">2WEEKS</string>
-    <string name="stock_detail_tab_1_month">1MONTH</string>
+    <string name="stock_detail_tab_6_months">6MONTHS</string>
+    <string name="stock_detail_tab_1_year">1YEAR</string>
+    <string name="stock_detail_tab_2_years">2YEARS</string>
 
 
     <string name="pref_display_mode_key" translatable="false">displayMode</string>
