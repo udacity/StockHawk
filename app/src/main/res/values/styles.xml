@@ -8,7 +8,7 @@
 
     <style name="PercentChangeTextStyle">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#FFF</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -16,8 +16,22 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="WidgetBidPriceTextStyle" parent="BidPriceTextStyle">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="StockSymbolTextStyle">
         <item name="android:textSize">25sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
+    <style name="WidgetStockSymbolTextStyle" parent="StockSymbolTextStyle">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="WidgetTitle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>
