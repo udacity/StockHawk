@@ -29,6 +29,7 @@
         android:layout_margin="16dp"
         android:onClick="button"
         android:src="@drawable/fab_plus"
+        android:contentDescription="@string/desc_main_fab"
         app:backgroundTint="@color/material_blue_500"
         app:borderWidth="0dp"
         app:elevation="6dp"
