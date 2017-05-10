@@ -101,7 +101,6 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
     }
 
     class StockViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         @BindView(R.id.symbol)
         TextView symbol;
 

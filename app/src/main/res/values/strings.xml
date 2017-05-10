@@ -32,6 +32,7 @@
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
     <string name="stock_does_not_exist_toast">Removed %s as does not exist</string>
+    <string name="error_no_stock_history_for_this_symbol">No stock history found for this symbol</string>
 
     <string name="title_widget_stock_price">Current Stock Prices</string>
 

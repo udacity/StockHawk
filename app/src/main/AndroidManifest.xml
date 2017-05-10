@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.DetailActivity" />
+
         <service
             android:name=".sync.QuoteIntentService"
             android:exported="false" />

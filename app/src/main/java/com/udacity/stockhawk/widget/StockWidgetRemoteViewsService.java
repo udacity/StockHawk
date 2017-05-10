@@ -1,5 +1,6 @@
 package com.udacity.stockhawk.widget;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.widget.RemoteViews;
@@ -8,11 +9,12 @@ import android.widget.RemoteViewsService;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.FormatUtil;
+import com.udacity.stockhawk.ui.DetailActivity;
 
 public class StockWidgetRemoteViewsService extends RemoteViewsService {
 
     @Override
-    public RemoteViewsFactory onGetViewFactory(Intent intent) {
+    public RemoteViewsFactory onGetViewFactory(final Intent intent) {
         return new RemoteViewsFactory() {
             Cursor data;
 
@@ -55,12 +57,24 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                 data.moveToPosition(position);
                 float rawPercentChange = data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE) / 100;
 
+                String symbol = data.getString(Contract.Quote.POSITION_SYMBOL);
+
                 remoteViews.setTextViewText(R.id.symbol,
-                        data.getString(Contract.Quote.POSITION_SYMBOL));
+                        symbol);
                 remoteViews.setTextViewText(R.id.price,
                         FormatUtil.dollarFormat.format(data.getFloat(Contract.Quote.POSITION_PRICE)));
                 remoteViews.setTextViewText(R.id.change,
                         FormatUtil.percentageFormat.format(rawPercentChange));
+
+                Intent fillInIntent = new Intent();
+                fillInIntent.putExtra(DetailActivity.SYMBOL_PARAM, symbol);
+                remoteViews.setOnClickFillInIntent(R.id.stock_list_item, fillInIntent);
+
+//                Intent detailActivityIntent = new Intent(getApplicationContext(), DetailActivity.class);
+//                intent.putExtra(DetailActivity.SYMBOL_PARAM, symbol);
+//                PendingIntent launchDetailActivity = PendingIntent.getActivity(
+//                        getApplicationContext(), 0, detailActivityIntent, 0);
+//                remoteViews.setOnClickPendingIntent(R.id.symbol, launchDetailActivity);
 
                 if (rawPercentChange > 0) {
                     remoteViews.setInt(R.id.change, "setBackgroundResource", R.drawable.percent_change_pill_green);
