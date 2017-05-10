@@ -33,4 +33,6 @@
     <string name="toast_no_connectivity">Will refresh when network available.</string>
     <string name="stock_does_not_exist_toast">Removed %s as does not exist</string>
 
+    <string name="title_widget_stock_price">Current Stock Prices</string>
+
 </resources>
