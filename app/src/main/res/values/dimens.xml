@@ -1,3 +1,8 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="widget_stock_price_default_height">110dp</dimen>
+    <dimen name="widget_stock_price_default_width">250dp</dimen>
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_padding">16dp</dimen>
+    <dimen name="widget_pill_padding">3dp</dimen>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desc_main_fab">Add a new stock</string>
+    <string name="desc_change_from_percentage">Change to show differences in dollars</string>
+    <string name="desc_change_from_dollar">Change to show differences in percentages</string>
+</resources>

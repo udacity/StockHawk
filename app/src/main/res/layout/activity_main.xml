@@ -17,7 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin" />
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -29,6 +31,7 @@
         android:layout_margin="16dp"
         android:onClick="button"
         android:src="@drawable/fab_plus"
+        android:contentDescription="@string/desc_main_fab"
         app:backgroundTint="@color/material_blue_500"
         app:borderWidth="0dp"
         app:elevation="6dp"
