@@ -32,4 +32,6 @@
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
 
+    <string name="alert_message_not_found">Stock not found, please try again.</string>
+
 </resources>

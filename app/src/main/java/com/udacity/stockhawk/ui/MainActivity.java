@@ -1,6 +1,7 @@
 package com.udacity.stockhawk.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -22,7 +23,9 @@ import android.widget.Toast;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.dto.StockHistory;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
+import com.udacity.stockhawk.utils.StockWidgetUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +48,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private StockAdapter adapter;
 
     @Override
-    public void onClick(String symbol) {
-        Timber.d("Symbol clicked: %s", symbol);
+    public void onClick(StockHistory history) {
+        Timber.d("Symbol clicked: %s", history.getStockSymbol());
+        Intent intentToDetailActivity = new Intent(this, DetailActivity.class);
+        intentToDetailActivity.putExtra(DetailActivity.EXTRA_STOCK_HISTORY, history);
+        startActivity(intentToDetailActivity);
     }
 
     @Override
@@ -78,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 String symbol = adapter.getSymbolAtPosition(viewHolder.getAdapterPosition());
                 PrefUtils.removeStock(MainActivity.this, symbol);
                 getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
+                StockWidgetUtils.updateWidget(MainActivity.this);
             }
         }).attachToRecyclerView(stockRecyclerView);
 
