@@ -6,8 +6,10 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingLeft="@dimen/widget_padding"
+    android:paddingStart="@dimen/widget_padding"
+    android:paddingRight="@dimen/widget_padding"
+    android:paddingEnd="@dimen/widget_padding">
 
     <TextView
         style="@style/WidgetStockSymbolTextStyle"
@@ -37,8 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/percent_change_pill_green"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
+            android:paddingLeft="@dimen/widget_pill_padding"
+            android:paddingStart="@dimen/widget_pill_padding"
+            android:paddingRight="@dimen/widget_pill_padding"
+            android:paddingEnd="@dimen/widget_pill_padding"
             tools:text="100%" />
 
     </LinearLayout>

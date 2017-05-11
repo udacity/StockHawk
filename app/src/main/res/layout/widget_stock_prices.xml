@@ -10,8 +10,10 @@
         android:id="@+id/widget_titlebar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/abc_action_bar_default_height_material"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingLeft="@dimen/widget_padding"
+        android:paddingRight="@dimen/widget_padding"
+        android:paddingStart="@dimen/widget_padding"
+        android:paddingEnd="@dimen/widget_padding"
         android:background="@color/colorPrimaryDark">
 
         <TextView
