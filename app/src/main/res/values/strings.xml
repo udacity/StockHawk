@@ -35,5 +35,6 @@
     <string name="error_no_stock_history_for_this_symbol">No stock history found for this symbol</string>
 
     <string name="title_widget_stock_price">Current Stock Prices</string>
+    <string name="stock_price_line_description">Stock price for %s</string>
 
 </resources>

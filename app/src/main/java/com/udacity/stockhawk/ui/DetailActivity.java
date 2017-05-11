@@ -92,7 +92,7 @@ public class DetailActivity extends AppCompatActivity {
                     return new SimpleDateFormat("MM/YY", Locale.ENGLISH).format(date);
                 }
             });
-            formatChartForDataSet(new LineDataSet(entries, String.format("Stock price for %s", symbol)));
+            formatChartForDataSet(new LineDataSet(entries, getString(R.string.stock_price_line_description, symbol)));
 
             error.setVisibility(View.GONE);
             lineChart.setVisibility(View.VISIBLE);
