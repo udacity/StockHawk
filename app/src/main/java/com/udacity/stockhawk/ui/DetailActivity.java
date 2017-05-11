@@ -3,6 +3,9 @@ package com.udacity.stockhawk.ui;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -30,15 +33,18 @@ import au.com.bytecode.opencsv.CSVReader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final java.lang.String SYMBOL_PARAM = "stock_symbol";
+    private static final int STOCK_DETAIL_LOADER = 0;
 
     @BindView(R.id.error)
     TextView error;
 
     @BindView(R.id.chart)
     LineChart lineChart;
+
+    private String symbol;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,21 +55,19 @@ public class DetailActivity extends AppCompatActivity {
 
         error.setText(getString(R.string.error_no_stock_history_for_this_symbol));
 
-        String symbol = getIntent().getStringExtra(SYMBOL_PARAM);
+        symbol = getIntent().getStringExtra(SYMBOL_PARAM);
         if (symbol != null && !symbol.isEmpty()) {
             setTitle(symbol + " history");
-            showHistoryGraph(symbol);
+            getSupportLoaderManager().initLoader(STOCK_DETAIL_LOADER, null, this);
         }
     }
 
-    private void showHistoryGraph(String symbol) {
-        Cursor query = getContentResolver().query(
-                Contract.Quote.URI.buildUpon().appendPath(symbol).build(),
-                null, null, null, null);
-        if (query != null && query.getCount() > 0) {
-            query.moveToFirst();
-            String history = query.getString(Contract.Quote.POSITION_HISTORY);
-            query.close();
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (data != null && data.getCount() > 0) {
+            data.moveToFirst();
+            String history = data.getString(Contract.Quote.POSITION_HISTORY);
+            data.close();
 
             List<Entry> entries = new ArrayList<>();
             final List<Long> timeValues = new ArrayList<>();
@@ -98,6 +102,15 @@ public class DetailActivity extends AppCompatActivity {
             lineChart.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this, Contract.Quote.URI.buildUpon().appendPath(symbol).build(),
+                                null, null, null, null);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {}
 
     private void formatChartForDataSet(LineDataSet lineDataSet) {
         int whiteColour = getResources().getColor(R.color.white);
