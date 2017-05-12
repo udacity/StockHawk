@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAppearance="@android:style/TextAppearance.Medium"
+            android:text="@string/error_unexpected"
             android:textColor="@color/cardview_light_background"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"/>

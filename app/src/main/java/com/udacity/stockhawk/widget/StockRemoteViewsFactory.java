@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -68,8 +70,16 @@ public class StockRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public RemoteViews getViewAt(int position) {
+        int layoutDirection = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault());
+        int layoutId;
+        if (layoutDirection == View.LAYOUT_DIRECTION_LTR) {
+            layoutId = R.layout.list_item_quote;
+        } else {
+            layoutId = R.layout.list_item_quote_rtl;
+        }
+
         RemoteViews row = new RemoteViews(context.getPackageName(),
-                R.layout.list_item_quote);
+                layoutId);
 
         Stock stock = stocks.get(position);
 

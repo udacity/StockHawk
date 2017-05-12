@@ -1,9 +1,11 @@
 package com.udacity.stockhawk.ui;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +60,15 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
     @Override
     public StockViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View item = LayoutInflater.from(context).inflate(R.layout.list_item_quote, parent, false);
+        int layoutDirection = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault());
+        int layoutId;
+        if (layoutDirection == View.LAYOUT_DIRECTION_LTR) {
+            layoutId = R.layout.list_item_quote;
+        } else {
+            layoutId = R.layout.list_item_quote_rtl;
+        }
+
+        View item = LayoutInflater.from(context).inflate(layoutId, parent, false);
 
         return new StockViewHolder(item);
     }
