@@ -1,9 +1,11 @@
 package com.udacity.stockhawk.ui;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.dto.StockHistory;
+import com.udacity.stockhawk.utils.StockHistoryUtils;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -56,7 +60,15 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
     @Override
     public StockViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View item = LayoutInflater.from(context).inflate(R.layout.list_item_quote, parent, false);
+        int layoutDirection = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault());
+        int layoutId;
+        if (layoutDirection == View.LAYOUT_DIRECTION_LTR) {
+            layoutId = R.layout.list_item_quote;
+        } else {
+            layoutId = R.layout.list_item_quote_rtl;
+        }
+
+        View item = LayoutInflater.from(context).inflate(layoutId, parent, false);
 
         return new StockViewHolder(item);
     }
@@ -104,7 +116,7 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
 
 
     interface StockAdapterOnClickHandler {
-        void onClick(String symbol);
+        void onClick(StockHistory history);
     }
 
     class StockViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -128,8 +140,10 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             cursor.moveToPosition(adapterPosition);
-            int symbolColumn = cursor.getColumnIndex(Contract.Quote.COLUMN_SYMBOL);
-            clickHandler.onClick(cursor.getString(symbolColumn));
+
+            String stockSymbol = cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_SYMBOL));
+            String stockHistory = cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_HISTORY));
+            clickHandler.onClick(StockHistoryUtils.parse(stockSymbol, stockHistory));
 
         }
 
