@@ -25,13 +25,13 @@ public class MonthAxisFormatter implements IAxisValueFormatter {
         axisLabels = new ArrayList<>();
         Collections.sort(records);
 
-
         DateFormat monthFormat = new SimpleDateFormat("MMM");
         DateFormat yearFormat = new SimpleDateFormat("yy");
         DateFormat dayFormat = new SimpleDateFormat("dd");
 
         for (StockRecord record : records) {
             Date date = record.getDate();
+
             String day = dayFormat.format(date);
             String month = monthFormat.format(date);
             String year = yearFormat.format(date);
@@ -43,18 +43,10 @@ public class MonthAxisFormatter implements IAxisValueFormatter {
                 axisLabels.add("");
             }
         }
-        Log.i("", "");
     }
 
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
-
-        Date date = new Date((int)value);
-        DateFormat monthFormat = new SimpleDateFormat("MMM");
-        DateFormat yearFormat = new SimpleDateFormat("yy");
-        String month = monthFormat.format(date);
-        String year = yearFormat.format(date);
-
-        return "";
+        return axisLabels.get((int) value);
     }
 }

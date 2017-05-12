@@ -3,6 +3,8 @@ package com.udacity.stockhawk.chart;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.view.Display;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -90,12 +92,16 @@ public class StockChart {
         chartDataSet.setCircleColor(Color.BLUE);
         chartDataSet.setCircleColorHole(Color.CYAN);
         chartDataSet.setValueTextSize(35.0f);
+        chartDataSet.setDrawFilled(true);
+        chartDataSet.setFillColor(ColorTemplate.colorWithAlpha(Color.CYAN, 150));
 
         // Description
         Description description = new Description();
         description.setText(model.getStockSymbol());
         description.setTextSize(22.0f);
         description.setTextColor(Color.WHITE);
+        int windowWidth = getWindowWidth();
+        description.setPosition(windowWidth - 130, 60f);
         chart.setDescription(description);
 
         // Legend
@@ -106,21 +112,29 @@ public class StockChart {
         xAxis.setTextSize(11f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.WHITE);
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);
-        xAxis.setAxisLineColor(Color.WHITE);
+        xAxis.setDrawGridLines(true);
+        xAxis.setGridColor(ColorTemplate.colorWithAlpha(Color.LTGRAY, 200));
+        xAxis.setDrawAxisLine(true);
+        xAxis.setYOffset(20f);
+        xAxis.setAxisLineColor(Color.LTGRAY);
+        xAxis.setAxisLineWidth(2.0f);
         xAxis.setValueFormatter(new MonthAxisFormatter(model.getRecords()));
-        xAxis.setLabelRotationAngle(45f);
+        xAxis.setLabelRotationAngle(-45f);
 
         // Y Axis
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
         leftAxis.setXOffset(20.0f);
-        leftAxis.setDrawAxisLine(false);
-        leftAxis.setAxisLineColor(Color.WHITE);
-        leftAxis.setDrawGridLines(false);
+        leftAxis.setDrawAxisLine(true);
+        leftAxis.setAxisLineColor(Color.LTGRAY);
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setGridColor(ColorTemplate.colorWithAlpha(Color.LTGRAY, 200));
         leftAxis.setGranularityEnabled(false);
+        leftAxis.setAxisLineWidth(2.0f);
         chart.getAxisRight().setEnabled(false);
+
+        leftAxis.setAxisMaximum(model.getMaxPrice() * 1.05f);
+        leftAxis.setAxisMinimum(0f);
     }
 
     private void addDataToChart() {
@@ -128,11 +142,12 @@ public class StockChart {
 
         List<Entry> entriesToChart = new ArrayList<>();
 
+        int position = 0;
         for (StockRecord record : records) {
-            entriesToChart.add(new Entry(record.getDate().getTime(), record.getValue()));
+            entriesToChart.add(new Entry(position++, record.getValue()));
         }
 
-        chartDataSet = new LineDataSet(entriesToChart, "");
+        chartDataSet = new LineDataSet(entriesToChart, null);
 
         LineData lineData = new LineData(chartDataSet);
         lineData.setValueTextSize(35.0f);
@@ -141,4 +156,10 @@ public class StockChart {
         chart.notifyDataSetChanged();
     }
 
+    public int getWindowWidth() {
+        Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
+    }
 }

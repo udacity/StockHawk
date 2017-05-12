@@ -72,6 +72,16 @@ public class StockHistory implements Parcelable{
         return new ArrayList<>(records);
     }
 
+    public float getMaxPrice() {
+        float maxPrice = 0.0f;
+        for (StockRecord record : records) {
+            if (record.getValue() > maxPrice) {
+                maxPrice = record.getValue();
+            }
+        }
+        return maxPrice;
+    }
+
     @Override
     public int describeContents() {
         return 0;

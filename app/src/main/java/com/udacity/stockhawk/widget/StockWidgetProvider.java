@@ -9,11 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.ui.DetailActivity;
 import com.udacity.stockhawk.ui.MainActivity;
+import com.udacity.stockhawk.utils.NetworkUtils;
 
 /**
  * Created by fmoyader on 8/5/17.
@@ -35,6 +39,10 @@ public class StockWidgetProvider extends AppWidgetProvider {
                     R.layout.stock_widget);
 
             widget.setRemoteAdapter(R.id.lv_stock_list, intentToStockWidgetService);
+
+            String errorMessage = getErrorMessage(context);
+            widget.setTextViewText(R.id.tv_empty_list_message, errorMessage);
+            widget.setEmptyView(R.id.lv_stock_list, R.id.tv_empty_list_message);
 
             // General
             Intent intentToMainActivity = new Intent(context, MainActivity.class);
@@ -62,9 +70,28 @@ public class StockWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         if(intent.getAction().equalsIgnoreCase(UPDATE_LIST)){
+            RemoteViews widget = new RemoteViews(context.getPackageName(),
+                    R.layout.stock_widget);
+            String errorMessage = getErrorMessage(context);
+            widget.setTextViewText(R.id.tv_empty_list_message, errorMessage);
+            widget.setEmptyView(R.id.lv_stock_list, R.id.tv_empty_list_message);
+
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(context, StockWidgetProvider.class));
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.lv_stock_list);
         }
+    }
+
+    public String getErrorMessage(Context context) {
+        String errorMessage;
+        if (PrefUtils.getStocks(context).size() == 0) {
+            errorMessage = context.getString(R.string.error_no_stocks);
+        } else if (!NetworkUtils.isNetworkUp(context)) {
+            errorMessage = context.getString(R.string.error_no_network);
+        } else {
+            errorMessage = context.getString(R.string.error_unexpected);
+        }
+
+        return errorMessage;
     }
 }

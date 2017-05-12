@@ -28,6 +28,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:onClick="button"
+        android:contentDescription="@string/fab_content_description"
         android:src="@drawable/fab_plus"
         app:backgroundTint="@color/material_blue_500"
         app:borderWidth="0dp"
@@ -42,5 +43,7 @@
         android:layout_gravity="center"
         android:textAppearance="@android:style/TextAppearance.Medium"
         android:visibility="gone"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         tools:text="Error message" />
 </merge>

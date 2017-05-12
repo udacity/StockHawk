@@ -8,6 +8,7 @@
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lc_stock_evolution"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/chart_margin"/>
 
 </RelativeLayout>
