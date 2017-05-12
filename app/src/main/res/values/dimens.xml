@@ -1,3 +1,7 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_header_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="chart_margin">16dp</dimen>
 </resources>
