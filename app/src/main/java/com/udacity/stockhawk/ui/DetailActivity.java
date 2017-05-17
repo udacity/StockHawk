@@ -1,8 +1,8 @@
 package com.udacity.stockhawk.ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.chart.StockChartController;
@@ -20,7 +20,9 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_STOCK_HISTORY)) {
             StockHistory stockHistory = intent.getParcelableExtra(EXTRA_STOCK_HISTORY);
-            renderStockChart(stockHistory);
+            if (stockHistory != null && !stockHistory.isEmpty()) {
+                renderStockChart(stockHistory);
+            }
         }
     }
 

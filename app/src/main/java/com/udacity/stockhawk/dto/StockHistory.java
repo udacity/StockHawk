@@ -92,4 +92,12 @@ public class StockHistory implements Parcelable{
         dest.writeTypedList(records);
         dest.writeString(stockSymbol);
     }
+
+    /**
+     *
+     * @return true if has records, false otherwise
+     */
+    public boolean isEmpty() {
+        return records.isEmpty();
+    }
 }

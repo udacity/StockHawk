@@ -43,7 +43,9 @@
             android:text="@string/error_unexpected"
             android:textColor="@color/cardview_light_background"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"/>
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"/>
 
     </LinearLayout>
 </FrameLayout>
