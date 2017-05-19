@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="@string/preference_graph_week_label"
+        android:entries="@array/pref_graph_option_labels"
+        android:entryValues="@array/pref_graph_option_values"
+        android:key="@string/preference_graph_mode_key"
+        android:title="@string/preference_graph_week_label" />
+</PreferenceScreen>

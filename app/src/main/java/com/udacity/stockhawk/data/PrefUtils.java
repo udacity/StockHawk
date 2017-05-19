@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.sync.QuoteSyncJob;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -86,6 +87,30 @@ public final class PrefUtils {
         }
 
         editor.apply();
+    }
+    public static String getCurrentQuotesChartPref(Context context){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getString(context.getString(R.string.preference_graph_mode_key),
+                            context.getString(R.string.preference_graph_week_value));
+    }
+    public static void setCurrentQuotesChartPref(Context context,String option){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString(context.getString(R.string.preference_graph_mode_key),option);
+        editor.apply();
+    }
+    public String [] getChartVisualizationOptionValues(Context context){
+        return context.getResources().getStringArray(R.array.pref_graph_option_values);
+    }
+    public String [] getChartVisualizationOptionLabels(Context context){
+        return context.getResources().getStringArray(R.array.pref_graph_option_labels);
+    }
+    @SuppressWarnings("ResourceType")
+    static public @QuoteSyncJob.TimeInterval
+    int getLocationStatus(Context c){
+        //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+        //return sp.getInt(c.getString(R.string.pref_location_status_key), SunshineSyncAdapter.LOCATION_STATUS_UNKNOWN);
+        return 0;
     }
 
 }

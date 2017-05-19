@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.Manifest.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -12,8 +13,8 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
         android:supportsRtl="true"
+        android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.MainActivity">
             <intent-filter>
@@ -27,6 +28,12 @@
             android:name=".sync.QuoteIntentService"
             android:exported="false" />
 
+        <service
+            android:name=".widget.WidgetUpdateIntentService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false" />
+
+
         <provider
             android:name=".data.StockProvider"
             android:authorities="com.udacity.stockhawk"
@@ -37,6 +44,27 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity android:name=".ui.QuoteHistoricActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+        <receiver android:name=".widget.StockListWidget"
+            android:label="@string/widget_title"
+            android:enabled="@bool/widget_stock_list_enabled">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.udacity.stockhawk.ACTION_DATA_UPDATED" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_stock_metadata"/>
+        </receiver>
+        <service
+            android:name=".widget.StockWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:enabled="@bool/widget_stock_list_enabled"
+            android:exported="false" />
     </application>
 
 </manifest>
