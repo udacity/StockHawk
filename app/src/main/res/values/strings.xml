@@ -35,5 +35,7 @@
     <string name="label_stock">Stock:</string>
     <string name="label_bid_price">Bid price:</string>
     <string name="label_price_change">Price change:</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>
