@@ -11,13 +11,16 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         android:layout_marginTop="3dp"
+        android:contentDescription="@string/ally_widget_title"
         android:gravity="fill_vertical|center_horizontal"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Widget.ActionBar.Title" />
 
     <ListView
         android:id="@+id/wListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin" />
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:contentDescription="@string/ally_widget_items" />
 </LinearLayout>

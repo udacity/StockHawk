@@ -1,4 +1,4 @@
-package com.udacity.stockhawk.ui.widget;
+package com.udacity.stockhawk.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

@@ -3,22 +3,22 @@
 
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
-    <string name="pref_stocks_key">stocks</string>
+    <string name="pref_stocks_key" translatable="false">stocks</string>
 
 
-    <string name="pref_display_mode_key">displayMode</string>
-    <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
+    <string name="pref_display_mode_key" translatable="false">displayMode</string>
+    <string name="pref_display_mode_default" translatable="false">@string/pref_display_mode_percentage_key</string>
 
-    <string name="pref_display_mode_absolute_key">absolute</string>
-    <string name="pref_display_mode_percentage_key">percentage</string>
+    <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
+    <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
 
-    <string name="default_stocks_yahoo">YHOO</string>
-    <string name="default_stocks_apple">AAPL</string>
-    <string name="default_stocks_microsoft">MSFT</string>
-    <string name="default_stocks_facebook">FB</string>
+    <string name="default_stocks_yahoo" translatable="false">YHOO</string>
+    <string name="default_stocks_apple" translatable="false">AAPL</string>
+    <string name="default_stocks_microsoft" translatable="false">MSFT</string>
+    <string name="default_stocks_facebook" translatable="false">FB</string>
 
 
-    <string name="action_change_units">@string/pref_display_mode_key</string>
+    <string name="action_change_units" translatable="false">@string/pref_display_mode_key</string>
 
 
     <string name="dialog_title">Add Stock</string>
@@ -37,5 +37,19 @@
     <string name="label_price_change">Price change:</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="widget_title">Stocks Widget</string>
+    <string name="stock_name">Stock name</string>
+    <string name="stock_price">Stock price</string>
+    <string name="stock_change">Stock change</string>
+    <string name="ally_change_field">Change field</string>
+    <string name="ally_change_percent_field">Change percent field</string>
+    <string name="ally_price_field">Price field</string>
+    <string name="ally_stock_name_field">Stock name</string>
+    <string name="ally_graph">Historic evolution graph</string>
+    <string name="ally_stock_info">Stock information</string>
+    <string name="ally_add_stock_button">Add stock button</string>
+    <string name="ally_search_stock">Search stock input text</string>
+    <string name="ally_widget_title">Stock widget title</string>
+    <string name="ally_widget_items">Stocks list container</string>
 
 </resources>

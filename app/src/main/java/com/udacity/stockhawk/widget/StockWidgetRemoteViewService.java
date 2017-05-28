@@ -1,4 +1,4 @@
-package com.udacity.stockhawk.ui.widget;
+package com.udacity.stockhawk.widget;
 
 import android.content.Intent;
 import android.database.Cursor;

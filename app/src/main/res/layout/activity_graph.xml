@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <GridLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:columnCount="2"
+        android:contentDescription="@string/ally_stock_info"
         android:padding="@dimen/activity_horizontal_margin">
 
         <TextView
@@ -23,8 +23,8 @@
             android:layout_marginEnd="@dimen/activity_graph_labels_margin_spacing"
             android:layout_marginRight="@dimen/activity_graph_labels_margin_spacing"
             android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
-            android:text="@string/label_stock"
-            />
+            android:contentDescription="@string/label_stock"
+            android:text="@string/label_stock" />
 
         <TextView
             android:id="@+id/symbol"
@@ -33,9 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
+            android:contentDescription="@string/ally_stock_name_field"
             android:gravity="start|center_vertical"
-            tools:text="GOOG"
-            />
+            tools:text="GOOG" />
 
         <TextView
             android:id="@+id/label_price"
@@ -46,8 +46,8 @@
             android:layout_marginEnd="@dimen/activity_graph_labels_margin_spacing"
             android:layout_marginRight="@dimen/activity_graph_labels_margin_spacing"
             android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
-            android:text="@string/label_bid_price"
-            />
+            android:contentDescription="@string/label_bid_price"
+            android:text="@string/label_bid_price" />
 
         <TextView
             android:id="@+id/price"
@@ -56,8 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
-            tools:text="1000.00"
-            />
+            android:contentDescription="@string/ally_price_field"
+            tools:text="1000.00" />
 
         <TextView
             android:id="@+id/label_change"
@@ -68,8 +68,8 @@
             android:layout_marginEnd="@dimen/activity_graph_labels_margin_spacing"
             android:layout_marginRight="@dimen/activity_graph_labels_margin_spacing"
             android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
-            android:text="@string/label_price_change"
-            />
+            android:contentDescription="@string/label_price_change"
+            android:text="@string/label_price_change" />
 
         <LinearLayout
             android:id="@+id/change_sublayout"
@@ -86,11 +86,12 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
                 android:background="@drawable/percent_change_pill_green"
+                android:contentDescription="@string/ally_change_field"
                 android:paddingEnd="@dimen/percent_change_horizontal_padding"
                 android:paddingLeft="@dimen/percent_change_horizontal_padding"
                 android:paddingRight="@dimen/percent_change_horizontal_padding"
                 android:paddingStart="@dimen/percent_change_horizontal_padding"
-                tools:text="+$2.02"/>
+                tools:text="+$2.02" />
 
             <TextView
                 android:id="@+id/change_percent"
@@ -100,21 +101,22 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
                 android:background="@drawable/percent_change_pill_green"
+                android:contentDescription="@string/ally_change_percent_field"
                 android:paddingEnd="@dimen/percent_change_horizontal_padding"
                 android:paddingLeft="@dimen/percent_change_horizontal_padding"
                 android:paddingRight="@dimen/percent_change_horizontal_padding"
                 android:paddingStart="@dimen/percent_change_horizontal_padding"
-                tools:text="100%"/>
+                tools:text="100%" />
         </LinearLayout>
     </GridLayout>
 
-    <com.github.mikephil.charting.charts.LineChart
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.github.mikephil.charting.charts.LineChart xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/graph"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:background="@android:drawable/screen_background_light_transparent"/>
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:contentDescription="@string/ally_graph" />
 
 </LinearLayout>
