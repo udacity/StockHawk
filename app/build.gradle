@@ -58,7 +58,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.google.guava:guava:20.0'
-    compile 'com.yahoofinance-api:YahooFinanceAPI:3.5.0'
+    compile 'com.yahoofinance-api:YahooFinanceAPI:3.6.1'
     compile 'com.jakewharton.timber:timber:4.4.0'
     compile 'net.sf.opencsv:opencsv:2.3'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
