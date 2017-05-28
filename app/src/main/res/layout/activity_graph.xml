@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:columnCount="2"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/label_symbol"
+            style="@style/GraphLabelStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/activity_graph_labels_margin_spacing"
+            android:layout_marginRight="@dimen/activity_graph_labels_margin_spacing"
+            android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
+            android:text="@string/label_stock"
+            />
+
+        <TextView
+            android:id="@+id/symbol"
+            style="@style/StockSymbolTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
+            android:gravity="start|center_vertical"
+            tools:text="GOOG"
+            />
+
+        <TextView
+            android:id="@+id/label_price"
+            style="@style/GraphLabelStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/activity_graph_labels_margin_spacing"
+            android:layout_marginRight="@dimen/activity_graph_labels_margin_spacing"
+            android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
+            android:text="@string/label_bid_price"
+            />
+
+        <TextView
+            android:id="@+id/price"
+            style="@style/BidPriceTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
+            tools:text="1000.00"
+            />
+
+        <TextView
+            android:id="@+id/label_change"
+            style="@style/GraphLabelStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/activity_graph_labels_margin_spacing"
+            android:layout_marginRight="@dimen/activity_graph_labels_margin_spacing"
+            android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
+            android:text="@string/label_price_change"
+            />
+
+        <LinearLayout
+            android:id="@+id/change_sublayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/change_absolute"
+                style="@style/PercentChangeTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
+                android:background="@drawable/percent_change_pill_green"
+                android:paddingEnd="@dimen/percent_change_horizontal_padding"
+                android:paddingLeft="@dimen/percent_change_horizontal_padding"
+                android:paddingRight="@dimen/percent_change_horizontal_padding"
+                android:paddingStart="@dimen/percent_change_horizontal_padding"
+                tools:text="+$2.02"/>
+
+            <TextView
+                android:id="@+id/change_percent"
+                style="@style/PercentChangeTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_graph_labels_margin_spacing"
+                android:background="@drawable/percent_change_pill_green"
+                android:paddingEnd="@dimen/percent_change_horizontal_padding"
+                android:paddingLeft="@dimen/percent_change_horizontal_padding"
+                android:paddingRight="@dimen/percent_change_horizontal_padding"
+                android:paddingStart="@dimen/percent_change_horizontal_padding"
+                tools:text="100%"/>
+        </LinearLayout>
+    </GridLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:background="@android:drawable/screen_background_light_transparent"/>
+
+</LinearLayout>

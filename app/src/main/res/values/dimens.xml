@@ -1,3 +1,5 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_graph_labels_margin_spacing">8dp</dimen>
+    <dimen name="percent_change_horizontal_padding">3dp</dimen>
 </resources>
