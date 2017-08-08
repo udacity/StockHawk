@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.udacity.stockhawk.ui.QuoteHistoricActivity">
+    <!--@BindView(R.id.symbol)-->
+    <!--TextView symbol;-->
+
+    <!--@BindView(R.id.price)-->
+    <!--TextView price;-->
+
+    <!--@BindView(R.id.change)-->
+    <!--TextView change;-->
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="30">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/symbol_tv_text"
+        tools:text="@string/symbol_tv_text"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+    android:id="@+id/tv_symbol"
+    android:text="@string/symbol_tv_text"
+    android:layout_width="wrap_content"
+    android:layout_height="17dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/price_tv_text"-->
+        <!--tools:text="@string/price_tv_text"-->
+        <!--android:id="@+id/textView2"-->
+        <!--app:layout_constraintRight_toLeftOf="@+id/tv_price"-->
+        <!--android:layout_marginRight="47dp"-->
+        <!--android:layout_marginBottom="9dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/textView3"-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/tv_symbol"-->
+        <!--android:layout_marginLeft="0dp"-->
+        <!--app:layout_constraintHorizontal_bias="0.0" />-->
+    <!--<TextView-->
+        <!--android:id="@+id/tv_price"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--tools:text="@string/price_tv_text"-->
+        <!--tools:layout_editor_absoluteY="68dp"-->
+        <!--tools:layout_editor_absoluteX="29dp" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/change_perc_tv_text"-->
+        <!--tools:text="@string/change_perc_tv_text"-->
+        <!--tools:layout_editor_absoluteY="94dp"-->
+        <!--app:layout_constraintRight_toLeftOf="@+id/tv_change_percentage"-->
+        <!--android:layout_marginRight="19dp"-->
+        <!--android:id="@+id/textView3" />-->
+    <!--<TextView-->
+        <!--android:id="@+id/tv_change_percentage"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--tools:text="@string/change_perc_tv_text"-->
+        <!--android:text="@string/change_perc_tv_text"-->
+        <!--tools:layout_editor_absoluteY="94dp"-->
+        <!--tools:layout_editor_absoluteX="132dp" />-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/change_abs_tv_text"-->
+        <!--tools:text="@string/change_abs_tv_text"-->
+        <!--tools:layout_editor_absoluteY="120dp"-->
+        <!--tools:layout_editor_absoluteX="38dp" />-->
+    <!--<TextView-->
+        <!--android:id="@+id/tv_change_abs"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--tools:text="@string/change_abs_tv_text"-->
+        <!--tools:layout_editor_absoluteY="120dp"-->
+        <!--tools:layout_editor_absoluteX="132dp" />-->
+
+</android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/historic_root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="70"></FrameLayout>
+</LinearLayout>

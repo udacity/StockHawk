@@ -6,4 +6,15 @@
         <item>@string/default_stocks_microsoft</item>
         <item>@string/default_stocks_facebook</item>
     </string-array>
+    <array name="pref_graph_option_labels">
+        <item>@string/preference_graph_week_label</item>
+        <item>@string/preference_graph_month_label</item>
+        <item>@string/preference_graph_year_label</item>
+    </array>
+
+    <array name="pref_graph_option_values">
+        <item>@string/preference_graph_week_value</item>
+        <item>@string/preference_graph_month_value</item>
+        <item>@string/preference_graph_year_value</item>
+    </array>
 </resources>

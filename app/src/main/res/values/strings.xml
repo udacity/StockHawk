@@ -3,7 +3,7 @@
 
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
-    <string name="pref_stocks_key">stocks</string>
+    <string name="pref_stocks_key" translatable="false">stocks</string>
 
 
     <string name="pref_display_mode_key">displayMode</string>
@@ -16,7 +16,7 @@
     <string name="default_stocks_apple">AAPL</string>
     <string name="default_stocks_microsoft">MSFT</string>
     <string name="default_stocks_facebook">FB</string>
-
+    <!--<string name="current_stocks_key" translatable="false">current_stock_key</string>-->
 
     <string name="action_change_units">@string/pref_display_mode_key</string>
 
@@ -32,4 +32,27 @@
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
 
+    <!--setting strings-->
+    <string name="action_settings">Interval</string>
+    <string name="preference_graph_label">Time Interval</string>
+    <string name="preference_graph_year_label">1 Year</string>
+    <string name="preference_graph_month_label">1 Month</string>
+    <string name="preference_graph_week_label">5 days</string>
+
+    <string name="preference_graph_mode_key" translatable="false">graph_option_key</string>
+    <string name="preference_graph_year_value" translatable="false">y</string>
+    <string name="preference_graph_month_value" translatable="false">m</string>
+    <string name="preference_graph_week_value" translatable="false">w</string>
+
+    <string name="graph_content_descrition">Current chart</string>
+    <string name="symbol_tv_text" >Quote</string>
+    <string name="price_tv_text" >Current price:</string>
+    <string name="change_perc_tv_text" >ChangePerc:</string>
+    <string name="change_abs_tv_text" >ChangeAbs:</string>
+<!-- service handle values -->
+
+<!-- widget values -->
+    <string name="widget_title">Stock Hawk</string>
+    <!--<string name="widget_id_array_key" translatable="false">widgetid_array</string>-->
+    <string name="widget_error_data_empty">Stock List is empty</string>
 </resources>
