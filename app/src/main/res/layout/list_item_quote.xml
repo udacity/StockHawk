@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lListItem"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp">
 
     <TextView
         android:id="@+id/symbol"
         style="@style/StockSymbolTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/stock_name"
         android:gravity="start|center_vertical"
         tools:text="GOOG" />
 
@@ -28,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10sp"
+            android:contentDescription="@string/stock_price"
             tools:text="1000.00" />
 
         <TextView
@@ -36,8 +41,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/percent_change_pill_green"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
+            android:contentDescription="@string/stock_change"
+            android:paddingEnd="@dimen/percent_change_horizontal_padding"
+            android:paddingLeft="@dimen/percent_change_horizontal_padding"
+            android:paddingRight="@dimen/percent_change_horizontal_padding"
+            android:paddingStart="@dimen/percent_change_horizontal_padding"
             tools:text="100%" />
     </LinearLayout>
 </LinearLayout>
