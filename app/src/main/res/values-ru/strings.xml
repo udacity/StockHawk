@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Биржевые индексы</string>
+    <string name="dialog_add" translatable="false">Добавить</string>
+    <string name="dialog_cancel" translatable="false">Отмена</string>
+    <string name="dialog_title" translatable="false">Добавить индекс</string>
+    <string name="dialog_hint" translatable="false">Индекс(например GOOG)</string>
+    <string name="error_no_network" translatable="false">Нет сети! Будут загруженые индексы по-умолчанию</string>
+    <string name="error_no_stocks" translatable="false">Ни одного индекса не добавлено. Нажмите кнопку \"добавить индекс\"</string>
+    <string name="fab_description" translatable="false">Добавить индекс</string>
+    <string name="pref_display_mode_absolute_value" translatable="false">Абсолютное значение</string>
+    <string name="pref_display_mode_percentage_value" translatable="false">Процентное значение</string>
+    <string name="toast_no_connectivity">Будет обновлено, когда сеть будет доступна</string>
+    <string name="toast_stock_added_no_connectivity">Индекс %s добавлен. Будет обновлен, когда сеть будет доступна</string>
+</resources>

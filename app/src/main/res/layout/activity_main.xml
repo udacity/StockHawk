@@ -29,6 +29,7 @@
         android:layout_margin="16dp"
         android:onClick="button"
         android:src="@drawable/fab_plus"
+        android:contentDescription="@string/fab_description"
         app:backgroundTint="@color/material_blue_500"
         app:borderWidth="0dp"
         app:elevation="6dp"
@@ -42,5 +43,5 @@
         android:layout_gravity="center"
         android:textAppearance="@android:style/TextAppearance.Medium"
         android:visibility="gone"
-        tools:text="Error message" />
+        tools:text="Error message"/>
 </merge>
